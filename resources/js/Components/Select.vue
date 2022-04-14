@@ -16,11 +16,14 @@
                 {{ option[textBy] }}
             </option>
         </select>
+
         <div class="invalid-feedback" v-if="error">{{ error }}</div>
     </div>
 </template>
 
 <script>
+import useId from '../Composables/useId'
+
 export default {
     inheritAttrs: false,
     emits: ['update:modelValue'],
@@ -50,10 +53,9 @@ export default {
             required: false,
         },
     },
-    computed: {
-        id() {
-            return `${this.label.toLowerCase()}_${parseInt(Math.random() * 100)}`;
-        }
+    setup(props) {
+        const id = useId(props.label)
+        return { id }
     },
 }
 </script>
