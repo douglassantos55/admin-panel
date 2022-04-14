@@ -1,13 +1,21 @@
 <template>
     <div class="mb-3" :class="$attrs.class">
         <label :for="id" class="form-label" v-if="label">{{ label }}</label>
-        <input
+        <select
             :id="id"
             v-bind="$attrs"
-            class="form-control"
+            class="form-select"
             :class="{ 'is-invalid': !!error }"
-            @input="$emit('update:modelValue', $event.target.value)"
-        />
+            @change="$emit('update:modelValue', $event.target.value)"
+        >
+            <option
+                v-for="option in options"
+                :key="option[keyBy]"
+                :value="option[keyBy]"
+            >
+                {{ option[textBy] }}
+            </option>
+        </select>
         <div class="invalid-feedback" v-if="error">{{ error }}</div>
     </div>
 </template>
@@ -21,9 +29,21 @@ export default {
             type: String,
             required: true,
         },
+        options: {
+            type: Array,
+            required: true,
+        },
         error: {
             type: String,
             required: false,
+        },
+        keyBy: {
+            type: String,
+            default: 'id',
+        },
+        textBy: {
+            type: String,
+            default: 'name',
         },
         label: {
             type: String,
