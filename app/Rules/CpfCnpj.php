@@ -38,6 +38,6 @@ class CpfCnpj implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'O campo :attribute nao e valido.';
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::controller(CustomerController::class)->group(function () {
+    Route::get('/customers', 'index')->name('customers.index');
+    Route::get('/customers/create', 'create')->name('customers.create');
+    Route::post('/customers/store', 'store')->name('customers.store');
+});
 
 Route::get('/', function () {
     return inertia('Welcome');
