@@ -33,7 +33,7 @@ return [
     'boolean' => 'The :attribute field must be true or false.',
     'confirmed' => 'The :attribute confirmation does not match.',
     'current_password' => 'The password is incorrect.',
-    'date' => 'The :attribute is not a valid date.',
+    'date' => 'O campo :attribute nao e uma data valida.',
     'date_equals' => 'The :attribute must be a date equal to :date.',
     'date_format' => 'O campo :attribute nao possui o formato :format.',
     'declined' => 'The :attribute must be declined.',

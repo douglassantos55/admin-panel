@@ -44,7 +44,7 @@ class CreateCustomerTest extends TestCase
         $response->assertInvalid([
             'name' => 'O campo nome e obrigatorio.',
             'email' => 'O campo email deve ser um endereco de email valido.',
-            'birthdate' => 'O campo data de nascimento nao possui o formato d/m/Y.',
+            'birthdate' => 'O campo data de nascimento nao e uma data valida.',
             'cpf_cnpj' => 'O campo CPF/CNPJ nao e valido.',
             'phone' => 'O campo telefone nao e valido.',
             'cellphone' => 'O campo celular nao e valido.',
@@ -53,12 +53,162 @@ class CreateCustomerTest extends TestCase
         ]);
     }
 
+    public function test_no_email()
+    {
+        $response = $this->post(route('customers.store'), [
+            'name' => 'John Doe',
+            'email' => '',
+            'birthdate' => '2000-12-23',
+            'cpf_cnpj' => '926.395.660-08',
+            'rg_insc_est' => '',
+            'phone' => '(19) 3333-3333',
+            'cellphone' => '(19) 98888-4433',
+            'ocupation' => 'Developer',
+            'address' => 'Av 9 de Abril',
+            'number' => '2346',
+            'complement' => '',
+            'neighborhood' => 'Centro',
+            'city' => 'Mogi Guacu',
+            'state' => 'SP',
+            'postcode' => '13840-000',
+            'observations' => 'observation',
+        ]);
+
+        $response->assertRedirect(route('customers.index'));
+        $this->assertModelExists(Customer::where('name', 'John Doe')->first());
+    }
+
+    public function test_no_birthdate()
+    {
+        $response = $this->post(route('customers.store'), [
+            'name' => 'John Doe',
+            'email' => '',
+            'birthdate' => '',
+            'cpf_cnpj' => '926.395.660-08',
+            'rg_insc_est' => '',
+            'phone' => '(19) 3333-3333',
+            'cellphone' => '(19) 98888-4433',
+            'ocupation' => 'Developer',
+            'address' => 'Av 9 de Abril',
+            'number' => '2346',
+            'complement' => '',
+            'neighborhood' => 'Centro',
+            'city' => 'Mogi Guacu',
+            'state' => 'SP',
+            'postcode' => '13840-000',
+            'observations' => 'observation',
+        ]);
+
+        $response->assertRedirect(route('customers.index'));
+        $this->assertModelExists(Customer::where('name', 'John Doe')->first());
+    }
+
+    public function test_no_cellphone()
+    {
+        $response = $this->post(route('customers.store'), [
+            'name' => 'John Doe',
+            'email' => '',
+            'birthdate' => '',
+            'cpf_cnpj' => '926.395.660-08',
+            'rg_insc_est' => '',
+            'phone' => '',
+            'cellphone' => '',
+            'ocupation' => 'Developer',
+            'address' => 'Av 9 de Abril',
+            'number' => '2346',
+            'complement' => '',
+            'neighborhood' => 'Centro',
+            'city' => 'Mogi Guacu',
+            'state' => 'SP',
+            'postcode' => '13840-000',
+            'observations' => 'observation',
+        ]);
+
+        $response->assertRedirect(route('customers.index'));
+        $this->assertModelExists(Customer::where('name', 'John Doe')->first());
+    }
+
+    public function test_no_state()
+    {
+        $response = $this->post(route('customers.store'), [
+            'name' => 'John Doe',
+            'email' => '',
+            'birthdate' => '',
+            'cpf_cnpj' => '926.395.660-08',
+            'rg_insc_est' => '',
+            'phone' => '',
+            'cellphone' => '(19) 98888-4433',
+            'ocupation' => 'Developer',
+            'address' => 'Av 9 de Abril',
+            'number' => '2346',
+            'complement' => '',
+            'neighborhood' => 'Centro',
+            'city' => 'Mogi Guacu',
+            'state' => '',
+            'postcode' => '13840-000',
+            'observations' => 'observation',
+        ]);
+
+        $response->assertRedirect(route('customers.index'));
+        $this->assertModelExists(Customer::where('name', 'John Doe')->first());
+    }
+
+    public function test_no_phone()
+    {
+        $response = $this->post(route('customers.store'), [
+            'name' => 'John Doe',
+            'email' => '',
+            'birthdate' => '',
+            'cpf_cnpj' => '926.395.660-08',
+            'rg_insc_est' => '',
+            'phone' => '',
+            'cellphone' => '(19) 98888-4433',
+            'ocupation' => 'Developer',
+            'address' => 'Av 9 de Abril',
+            'number' => '2346',
+            'complement' => '',
+            'neighborhood' => 'Centro',
+            'city' => 'Mogi Guacu',
+            'state' => 'SP',
+            'postcode' => '13840-000',
+            'observations' => 'observation',
+        ]);
+
+        $response->assertRedirect(route('customers.index'));
+        $this->assertModelExists(Customer::where('name', 'John Doe')->first());
+    }
+
+    public function test_no_postcode()
+    {
+        $response = $this->post(route('customers.store'), [
+            'name' => 'John Doe',
+            'email' => '',
+            'birthdate' => '',
+            'cpf_cnpj' => '926.395.660-08',
+            'rg_insc_est' => '',
+            'phone' => '',
+            'cellphone' => '(19) 98888-4433',
+            'ocupation' => 'Developer',
+            'address' => 'Av 9 de Abril',
+            'number' => '2346',
+            'complement' => '',
+            'neighborhood' => 'Centro',
+            'city' => 'Mogi Guacu',
+            'state' => 'SP',
+            'postcode' => '',
+            'observations' => 'observation',
+        ]);
+
+        $response->assertRedirect(route('customers.index'));
+        $this->assertModelExists(Customer::where('name', 'John Doe')->first());
+    }
+
     public function test_creates_customer()
     {
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
-            'email' => 'john@email.com',
-            'birthdate' => '21/12/2000',
+            'email' => 'email@domain.com',
+            'birthdate' => '2000-12-23',
             'cpf_cnpj' => '926.395.660-08',
             'rg_insc_est' => '',
             'phone' => '(19) 3333-3333',
