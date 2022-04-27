@@ -18,6 +18,12 @@ class CustomerController extends Controller
         return inertia('Customer/Form');
     }
 
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
+        return redirect()->route('customers.index');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('postcode')->nullable();
             $table->text('observations')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

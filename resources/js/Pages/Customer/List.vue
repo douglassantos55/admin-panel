@@ -37,6 +37,11 @@
                         </span>
                     </td>
                     <td>{{ formatAddress(customer) }}</td>
+                    <td>
+                        <Link class="btn btn-danger" :href="route('customers.destroy', customer.id)" method="delete">
+                            Delete
+                        </Link>
+                    </td>
                 </tr>
             </template>
         </tbody>
