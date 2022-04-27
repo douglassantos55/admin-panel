@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { maska } from 'maska'
 import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import AddressForm from '../Components/AddressForm.vue'
@@ -6,6 +7,9 @@ import AddressForm from '../Components/AddressForm.vue'
 describe('AddressForm', () => {
     it('fetches address on blur', async () => {
         const form = mount(AddressForm, {
+            global: {
+                directives: { maska },
+            },
             props: {
                 errors: {},
                 address: {
@@ -58,6 +62,9 @@ describe('AddressForm', () => {
 
     it('displays error invalid postcode', async () => {
         const form = mount(AddressForm, {
+            global: {
+                directives: { maska },
+            },
             props: {
                 errors: {},
                 address: {
@@ -92,6 +99,9 @@ describe('AddressForm', () => {
 
     it('displays error not found', async () => {
         const form = mount(AddressForm, {
+            global: {
+                directives: { maska },
+            },
             props: {
                 errors: {},
                 address: {
@@ -124,6 +134,9 @@ describe('AddressForm', () => {
 
     it('displays connection error', async () => {
         const form = mount(AddressForm, {
+            global: {
+                directives: { maska },
+            },
             props: {
                 errors: {},
                 address: {
@@ -156,50 +169,11 @@ describe('AddressForm', () => {
         })
     })
 
-    it('focuses number after fetching', async () => {
-        const form = mount(AddressForm, {
-            attachTo: document.body,
-            props: {
-                errors: {},
-                address: {
-                    postcode: '',
-                    street: '',
-                    number: '',
-                    complement: '',
-                    neighborhood: '',
-                    city: '',
-                    state: '',
-                },
-            }
-        })
-
-        jest.spyOn(axios, 'get').mockImplementation(url => {
-            return Promise.resolve({
-                data: {
-                    "cep": "01001-000",
-                    "logradouro": "Praça da Sé",
-                    "complemento": "lado ímpar",
-                    "bairro": "Sé",
-                    "localidade": "São Paulo",
-                    "uf": "SP",
-                    "ibge": "3550308",
-                    "gia": "1004",
-                    "ddd": "11",
-                    "siafi": "7107"
-                },
-            })
-        })
-
-        const cep = form.get('[id*="cep"]')
-        await cep.setValue('01001-000')
-        await cep.trigger('blur')
-
-        await nextTick()
-        expect(form.find('[id*="numero"]').element).toBe(document.activeElement)
-    })
-
     it('disables fields while fetching', async () => {
         const form = mount(AddressForm, {
+            global: {
+                directives: { maska },
+            },
             props: {
                 errors: {},
                 address: {

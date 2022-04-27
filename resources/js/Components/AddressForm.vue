@@ -3,6 +3,7 @@
         <Input
             class="col-md-4"
             label="CEP"
+            v-maska="'#####-###'"
             v-model="address.postcode"
             :error="errors.postcode"
             @blur="fetch"

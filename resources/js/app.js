@@ -2,6 +2,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import Layout from './Pages/Layout.vue'
+import Maska from 'maska'
 
 InertiaProgress.init()
 
@@ -14,6 +15,7 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
       .use(plugin)
+      .use(Maska)
       .mount(el)
   },
 })
