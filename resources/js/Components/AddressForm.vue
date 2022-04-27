@@ -112,7 +112,7 @@ export default {
                     })
 
                     if (this.$refs.numberInput) {
-                        this.$refs.numberInput.focus()
+                        this.$nextTick(() => this.$refs.numberInput.focus())
                     }
                 }
             } catch (error) {
