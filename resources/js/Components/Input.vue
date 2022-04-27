@@ -3,7 +3,9 @@
         <label :for="id" class="form-label" v-if="label">{{ label }}</label>
         <input
             :id="id"
+            ref="input"
             v-bind="$attrs"
+            :value="modelValue"
             class="form-control"
             :class="{ 'is-invalid': !!error }"
             @input="$emit('update:modelValue', $event.target.value)"
@@ -13,9 +15,11 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import useId from '../Composables/useId'
 
 export default {
+    expose: ['focus'],
     inheritAttrs: false,
     emits: ['update:modelValue'],
     props: {
@@ -32,9 +36,15 @@ export default {
             required: false,
         },
     },
-    setup(props) {
+    setup(props, context) {
+        const input = ref(null)
         const id = useId(props.label)
-        return { id }
+
+        function focus() {
+            input && input.value.focus()
+        }
+
+        return { id, input, focus }
     },
 }
 </script>

@@ -4,6 +4,7 @@
         <select
             :id="id"
             v-bind="$attrs"
+            :value="modelValue"
             class="form-select"
             :class="{ 'is-invalid': !!error }"
             @change="$emit('update:modelValue', $event.target.value)"
