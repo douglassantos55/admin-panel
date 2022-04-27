@@ -23,7 +23,7 @@ class CustomerController extends Controller
             'name' => ['required'],
             'email' => ['nullable', 'email'],
             'birthdate' => ['nullable', 'date'],
-            'cpf_cnpj' => ['required', new CpfCnpj()],
+            'cpf_cnpj' => ['required', new CpfCnpj(), 'unique:App\Models\Customer'],
             'phone' => ['nullable', 'regex:/^\(\d{2}\) \d{4}-\d{4}$/'],
             'cellphone' => ['nullable', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
             'address.state' => ['nullable', 'size:2'],

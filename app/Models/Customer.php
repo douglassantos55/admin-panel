@@ -18,7 +18,7 @@ class Customer extends Model
         'phone',
         'cellphone',
         'ocupation',
-        'address',
+        'street',
         'number',
         'complement',
         'neighborhood',
