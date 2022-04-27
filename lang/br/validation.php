@@ -163,8 +163,8 @@ return [
         'cpf_cnpj' => 'CPF/CNPJ',
         'phone' => 'telefone',
         'cellphone' => 'celular',
-        'state' => 'UF',
-        'postcode' => 'CEP',
+        'address.state' => 'UF',
+        'address.postcode' => 'CEP',
     ],
 
 ];

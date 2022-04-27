@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Customer;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia;
@@ -31,13 +31,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '(19) 9074e0009',
             'cellphone' => '(19) 9000-4433',
             'ocupation' => '',
-            'address' => '',
-            'number' => '',
-            'complement' => '',
-            'neighborhood' => '',
-            'city' => '',
-            'state' => 'BRA',
-            'postcode' => '13889-0090',
+            'address' => array(
+                'street' => '',
+                'number' => '',
+                'complement' => '',
+                'neighborhood' => '',
+                'city' => '',
+                'state' => 'BRA',
+                'postcode' => '13889-0090',
+            ),
             'observations' => 'testing observation',
         ]);
 
@@ -48,8 +50,8 @@ class CreateCustomerTest extends TestCase
             'cpf_cnpj' => 'O campo CPF/CNPJ nao e valido.',
             'phone' => 'O campo telefone nao e valido.',
             'cellphone' => 'O campo celular nao e valido.',
-            'state' => 'O campo UF deve conter 2 caracteres.',
-            'postcode' => 'O campo CEP nao e valido.',
+            'address.state' => 'O campo UF deve conter 2 caracteres.',
+            'address.postcode' => 'O campo CEP nao e valido.',
         ]);
     }
 
@@ -64,13 +66,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '(19) 3333-3333',
             'cellphone' => '(19) 98888-4433',
             'ocupation' => 'Developer',
-            'address' => 'Av 9 de Abril',
-            'number' => '2346',
-            'complement' => '',
-            'neighborhood' => 'Centro',
-            'city' => 'Mogi Guacu',
-            'state' => 'SP',
-            'postcode' => '13840-000',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '13840-000',
+            ),
             'observations' => 'observation',
         ]);
 
@@ -89,13 +93,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '(19) 3333-3333',
             'cellphone' => '(19) 98888-4433',
             'ocupation' => 'Developer',
-            'address' => 'Av 9 de Abril',
-            'number' => '2346',
-            'complement' => '',
-            'neighborhood' => 'Centro',
-            'city' => 'Mogi Guacu',
-            'state' => 'SP',
-            'postcode' => '13840-000',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '13840-000',
+            ),
             'observations' => 'observation',
         ]);
 
@@ -114,13 +120,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '',
             'cellphone' => '',
             'ocupation' => 'Developer',
-            'address' => 'Av 9 de Abril',
-            'number' => '2346',
-            'complement' => '',
-            'neighborhood' => 'Centro',
-            'city' => 'Mogi Guacu',
-            'state' => 'SP',
-            'postcode' => '13840-000',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '13840-000',
+            ),
             'observations' => 'observation',
         ]);
 
@@ -139,13 +147,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '',
             'cellphone' => '(19) 98888-4433',
             'ocupation' => 'Developer',
-            'address' => 'Av 9 de Abril',
-            'number' => '2346',
-            'complement' => '',
-            'neighborhood' => 'Centro',
-            'city' => 'Mogi Guacu',
-            'state' => '',
-            'postcode' => '13840-000',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => '',
+                'postcode' => '13840-000',
+            ),
             'observations' => 'observation',
         ]);
 
@@ -164,13 +174,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '',
             'cellphone' => '(19) 98888-4433',
             'ocupation' => 'Developer',
-            'address' => 'Av 9 de Abril',
-            'number' => '2346',
-            'complement' => '',
-            'neighborhood' => 'Centro',
-            'city' => 'Mogi Guacu',
-            'state' => 'SP',
-            'postcode' => '13840-000',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '13840-000',
+            ),
             'observations' => 'observation',
         ]);
 
@@ -189,13 +201,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '',
             'cellphone' => '(19) 98888-4433',
             'ocupation' => 'Developer',
-            'address' => 'Av 9 de Abril',
-            'number' => '2346',
-            'complement' => '',
-            'neighborhood' => 'Centro',
-            'city' => 'Mogi Guacu',
-            'state' => 'SP',
-            'postcode' => '',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '',
+            ),
             'observations' => 'observation',
         ]);
 
@@ -214,13 +228,15 @@ class CreateCustomerTest extends TestCase
             'phone' => '(19) 3333-3333',
             'cellphone' => '(19) 98888-4433',
             'ocupation' => 'Developer',
-            'address' => 'Av 9 de Abril',
-            'number' => '2346',
-            'complement' => '',
-            'neighborhood' => 'Centro',
-            'city' => 'Mogi Guacu',
-            'state' => 'SP',
-            'postcode' => '13840-000',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '13840-000',
+            ),
             'observations' => 'observation',
         ]);
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('cpf_cnpj');
+            $table->string('cpf_cnpj')->unique();
             $table->string('email')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('rg_insc_est')->nullable();

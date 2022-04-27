@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function index()
+    {
+    }
+
     public function create()
     {
         return inertia('Customer/Form');
@@ -15,18 +19,22 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => ['required'],
             'email' => ['nullable', 'email'],
             'birthdate' => ['nullable', 'date'],
             'cpf_cnpj' => ['required', new CpfCnpj()],
             'phone' => ['nullable', 'regex:/^\(\d{2}\) \d{4}-\d{4}$/'],
             'cellphone' => ['nullable', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
-            'state' => ['nullable', 'size:2'],
-            'postcode' => ['nullable', 'regex:/^\d{5}-\d{3}$/'],
+            'address.state' => ['nullable', 'size:2'],
+            'address.postcode' => ['nullable', 'regex:/^\d{5}-\d{3}$/'],
         ]);
 
-        Customer::create($validated);
+        Customer::create([
+            ...$request->except('address'),
+            ...$request->post('address'),
+        ]);
+
         return redirect()->route('customers.index');
     }
 }
