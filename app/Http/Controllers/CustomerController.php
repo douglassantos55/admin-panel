@@ -10,6 +10,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
+        return inertia('Customer/List')->with('customers', Customer::all());
     }
 
     public function create()

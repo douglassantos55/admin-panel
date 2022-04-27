@@ -1,0 +1,24 @@
+<?php
+
+namespace Tests\Feature\Customer;
+
+use Tests\TestCase;
+use App\Models\Customer;
+use Inertia\Testing\AssertableInertia;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ListCustomerTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_lists_users()
+    {
+        Customer::factory()->count(10)->create();
+        $response = $this->get(route('customers.index'));
+
+        $response->assertInertia(
+            fn (AssertableInertia $page) =>
+                $page->component('Customer/List')->has('customers', 10)
+        );
+    }
+}

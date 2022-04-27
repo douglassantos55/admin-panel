@@ -17,7 +17,10 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'email' => $this->faker->email(),
+            'cpf_cnpj' => $this->faker->cpf(),
+            'rg_insc_est' => $this->faker->rg(),
         ];
     }
 }
