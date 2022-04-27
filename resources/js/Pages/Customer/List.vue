@@ -1,7 +1,7 @@
 <template>
     <div class="mb-4 d-flex align-items-center justify-content-between">
         <h1>Clientes</h1>
-        <Link href="/customers/create" class="btn btn-primary">Cadastrar</Link>
+        <Link :href="route('customers.create')" class="btn btn-primary">Cadastrar</Link>
     </div>
 
     <table class="table align-middle">

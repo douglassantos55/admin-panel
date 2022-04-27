@@ -34,7 +34,7 @@ function submit() {
 <template>
     <div class="mb-4 d-flex align-items-center justify-content-between">
         <h1>Cadastrar cliente</h1>
-        <Link href="/customers" class="btn btn-link">Voltar</Link>
+        <Link :href="route('customers.index')" class="btn btn-link">Voltar</Link>
     </div>
 
     <form @submit.prevent="submit">
@@ -108,7 +108,7 @@ function submit() {
 
         <div class="mb-4 d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-primary">Cadastrar</button>
-            <Link href="/customers" class="btn btn-secondary">Voltar</Link>
+            <Link :href="route('customers.index')" class="btn btn-secondary">Voltar</Link>
         </div>
     </form>
 </template>
