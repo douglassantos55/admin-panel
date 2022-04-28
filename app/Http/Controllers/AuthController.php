@@ -9,6 +9,10 @@ class AuthController extends Controller
 {
     public function login()
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return inertia('Auth/Login');
     }
 
@@ -24,6 +28,10 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],

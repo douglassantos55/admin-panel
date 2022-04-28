@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Testing\AssertableInertia;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -18,6 +19,19 @@ class LoginTest extends TestCase
         $response->assertInertia(
             fn (AssertableInertia $page) => $page->component('Auth/Login')
         );
+    }
+
+    public function test_redirects_if_already_authenticated()
+    {
+        Auth::login(User::factory()->create());
+        $response = $this->get(route('login'));
+        $response->assertRedirect(route('dashboard'));
+
+        $response = $this->post(route('authenticate'), [
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ]);
+        $response->assertRedirect(route('dashboard'));
     }
 
     public function test_invalid_email()

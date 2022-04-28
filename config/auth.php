@@ -108,4 +108,25 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application roles
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the roles that are available in the application and
+    | the actions they are allowed to execute.
+    |
+    */
+
+    'roles' => [
+        'receptionist' => [
+            // customers
+            'view-customers', 'create-customer', 'update-customer',
+            // rents
+            'view-rents', 'create-rent', 'update-rent',
+        ],
+        'accountant' => [
+            'view-rents',
+        ],
+    ],
 ];

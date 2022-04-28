@@ -11,6 +11,8 @@ class CustomerController extends Controller
 {
     public function index()
     {
+        Gate::authorize('view-customers');
+
         return inertia('Customer/List')->with('customers', Customer::all());
     }
 
