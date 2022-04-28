@@ -12,6 +12,16 @@ class DeleteCustomerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_needs_authorization()
+    {
+        Auth::login(User::factory()->create(['role' => 'accountant']));
+
+        $customer = Customer::factory()->create();
+        $response = $this->delete(route('customers.destroy', $customer->id));
+
+        $response->assertForbidden();
+    }
+
     public function test_deletes_customer()
     {
         Auth::login(User::factory()->create());

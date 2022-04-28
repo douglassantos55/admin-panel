@@ -18,17 +18,23 @@ class CustomerController extends Controller
 
     public function create()
     {
+        Gate::authorize('create-customer');
+
         return inertia('Customer/Form');
     }
 
     public function destroy(Customer $customer)
     {
+        Gate::authorize('destroy-customer');
+
         $customer->delete();
         return redirect()->route('customers.index');
     }
 
     public function store(CpfCnpj $cpfRule, Request $request)
     {
+        Gate::authorize('create-customer');
+
         $request->validate([
             'name' => ['required'],
             'email' => ['nullable', 'email'],
