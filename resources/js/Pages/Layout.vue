@@ -8,7 +8,7 @@ import { Link } from '@inertiajs/inertia-vue3'
 
         <div class="navbar-nav">
             <div class="nav-item">
-                <Link href="/auth/logout" class="nav-link">Sair</Link>
+                <Link :href="route('logout')" class="nav-link">Sair</Link>
             </div>
         </div>
     </header>
