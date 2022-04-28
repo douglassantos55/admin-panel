@@ -14,12 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(CustomerController::class)->group(function () {
-    Route::get('/customers', 'index')->name('customers.index');
-    Route::get('/customers/create', 'create')->name('customers.create');
-    Route::post('/customers/store', 'store')->name('customers.store');
-    Route::delete('/customers/{customer}', 'destroy')->name('customers.destroy');
+Route::middleware('auth')->group(function () {
+    Route::controller(CustomerController::class)->group(function () {
+        Route::get('/customers', 'index')->name('customers.index');
+        Route::get('/customers/create', 'create')->name('customers.create');
+        Route::post('/customers/store', 'store')->name('customers.store');
+        Route::delete('/customers/{customer}', 'destroy')->name('customers.destroy');
+    });
 });
+
+Route::get('/login', function () {
+})->name('login');
 
 Route::get('/', function () {
     return inertia('Welcome');

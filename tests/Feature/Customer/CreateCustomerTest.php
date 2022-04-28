@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Customer;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Inertia\Testing\AssertableInertia;
-use App\Models\Customer;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Testing\AssertableInertia;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateCustomerTest extends TestCase
 {
@@ -13,6 +15,7 @@ class CreateCustomerTest extends TestCase
 
     public function test_displays_customer_form()
     {
+        Auth::login(User::factory()->create());
         $response = $this->get(route('customers.create'));
 
         $response->assertInertia(
@@ -22,6 +25,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_validates_input()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => ' ',
             'email' => 'email#domain.com',
@@ -57,6 +62,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_no_email()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
             'email' => '',
@@ -84,6 +91,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_no_birthdate()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
             'email' => '',
@@ -111,6 +120,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_no_cellphone()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
             'email' => '',
@@ -138,6 +149,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_no_state()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
             'email' => '',
@@ -165,6 +178,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_no_phone()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
             'email' => '',
@@ -192,6 +207,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_no_postcode()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
             'email' => '',
@@ -219,6 +236,8 @@ class CreateCustomerTest extends TestCase
 
     public function test_creates_customer()
     {
+        Auth::login(User::factory()->create());
+
         $response = $this->post(route('customers.store'), [
             'name' => 'John Doe',
             'email' => 'email@domain.com',
@@ -246,6 +265,7 @@ class CreateCustomerTest extends TestCase
 
     public function test_unique_cpf()
     {
+        Auth::login(User::factory()->create());
         $customer = Customer::factory()->create();
 
         $response = $this->post(route('customers.store'), [

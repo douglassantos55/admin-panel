@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Rules\CpfCnpj;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CustomerController extends Controller
 {
@@ -24,13 +25,13 @@ class CustomerController extends Controller
         return redirect()->route('customers.index');
     }
 
-    public function store(Request $request)
+    public function store(CpfCnpj $cpfRule, Request $request)
     {
         $request->validate([
             'name' => ['required'],
             'email' => ['nullable', 'email'],
             'birthdate' => ['nullable', 'date'],
-            'cpf_cnpj' => ['required', new CpfCnpj(), 'unique:App\Models\Customer'],
+            'cpf_cnpj' => ['required', $cpfRule, 'unique:App\Models\Customer'],
             'phone' => ['nullable', 'regex:/^\(\d{2}\) \d{4}-\d{4}$/'],
             'cellphone' => ['nullable', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
             'address.state' => ['nullable', 'size:2'],
