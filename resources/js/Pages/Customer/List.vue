@@ -36,8 +36,12 @@
                             {{ customer.cellphone }}
                         </span>
                     </td>
-                    <td>{{ formatAddress(customer) }}</td>
+                    <td>{{ formatAddress(customer.address) }}</td>
                     <td>
+                        <Link class="btn btn-secondary" :href="route('customers.edit', customer.id)">
+                            Update
+                        </Link>
+
                         <Link class="btn btn-danger" :href="route('customers.destroy', customer.id)" method="delete">
                             Delete
                         </Link>
@@ -62,12 +66,12 @@ export default {
         },
     },
     methods: {
-        formatAddress(customer) {
+        formatAddress(address) {
             return [
-                customer.postcode,
-                customer.neighborhood,
-                customer.city,
-                customer.state,
+                address.postcode,
+                address.neighborhood,
+                address.city,
+                address.state,
             ].filter(value => value).join(', ')
         },
     },

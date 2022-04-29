@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/customers/create', 'create')->name('customers.create');
         Route::post('/customers/store', 'store')->name('customers.store');
         Route::delete('/customers/{customer}', 'destroy')->name('customers.destroy');
+        Route::get('/customers/edit/{customer}', 'edit')->name('customers.edit');
+        Route::put('/customers/update/{customer}', 'update')->name('customers.update');
     });
 
     Route::get('/', function () {

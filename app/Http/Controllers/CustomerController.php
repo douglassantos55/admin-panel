@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Rules\CpfCnpj;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -23,6 +22,13 @@ class CustomerController extends Controller
         return inertia('Customer/Form');
     }
 
+    public function edit(Customer $customer)
+    {
+        Gate::authorize('update-customer');
+
+        return inertia('Customer/Form')->with('customer', $customer);
+    }
+
     public function destroy(Customer $customer)
     {
         Gate::authorize('destroy-customer');
@@ -31,26 +37,15 @@ class CustomerController extends Controller
         return redirect()->route('customers.index');
     }
 
-    public function store(CpfCnpj $cpfRule, Request $request)
+    public function store(CustomerRequest $request)
     {
-        Gate::authorize('create-customer');
+        Customer::create($request->input());
+        return redirect()->route('customers.index');
+    }
 
-        $request->validate([
-            'name' => ['required'],
-            'email' => ['nullable', 'email'],
-            'birthdate' => ['nullable', 'date'],
-            'cpf_cnpj' => ['required', $cpfRule, 'unique:App\Models\Customer'],
-            'phone' => ['nullable', 'regex:/^\(\d{2}\) \d{4}-\d{4}$/'],
-            'cellphone' => ['nullable', 'regex:/^\(\d{2}\) \d{5}-\d{4}$/'],
-            'address.state' => ['nullable', 'size:2'],
-            'address.postcode' => ['nullable', 'regex:/^\d{5}-\d{3}$/'],
-        ]);
-
-        Customer::create([
-            ...$request->except('address'),
-            ...$request->post('address'),
-        ]);
-
+    public function update(Customer $customer, CustomerRequest $request)
+    {
+        $customer->update($request->input());
         return redirect()->route('customers.index');
     }
 }

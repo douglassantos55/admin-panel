@@ -4,7 +4,11 @@ import Input from '../../Components/Input.vue'
 import { Link, useForm } from '@inertiajs/inertia-vue3'
 import AddressForm from '../../Components/AddressForm.vue'
 
-const form = useForm({
+const { customer } = defineProps({
+    customer: Object,
+})
+
+const form = useForm(customer || {
     name: '',
     email: '',
     cpf_cnpj: '',
@@ -27,7 +31,12 @@ const form = useForm({
 
 function submit() {
     form.clearErrors()
-    form.post('/customers/store', { preserveScroll: true })
+
+    if (customer) {
+        form.put(route('customers.update', customer.id), { preserveScroll: true })
+    } else {
+        form.post(route('customers.store'), { preserveScroll: true })
+    }
 }
 </script>
 

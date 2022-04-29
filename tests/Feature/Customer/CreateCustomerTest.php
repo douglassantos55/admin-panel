@@ -21,24 +21,24 @@ class CreateCustomerTest extends TestCase
         $response->assertForbidden();
 
         $response = $this->post(route('customers.store'), [
-            'name' => ' ',
+            'name' => 'John Doe',
             'email' => 'email@domain.com',
-            'birthdate' => '2000-12-20',
-            'cpf_cnpj' => '123.123.123-99',
+            'birthdate' => '2000-12-23',
+            'cpf_cnpj' => '926.395.660-08',
             'rg_insc_est' => '',
-            'phone' => '(19) 9074-0009',
-            'cellphone' => '(19) 9000-4433',
-            'ocupation' => '',
+            'phone' => '(19) 3333-3333',
+            'cellphone' => '(19) 98888-4433',
+            'ocupation' => 'Developer',
             'address' => array(
-                'street' => '',
-                'number' => '',
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
                 'complement' => '',
-                'neighborhood' => '',
-                'city' => '',
-                'state' => 'BR',
-                'postcode' => '13889-000',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '13840-000',
             ),
-            'observations' => '',
+            'observations' => 'observation',
         ]);
 
         $response->assertForbidden();
