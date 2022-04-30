@@ -50,6 +50,7 @@
                     <th>E-mail</th>
                     <th>Telefone<br>Celular</th>
                     <th>Endereço</th>
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
 
@@ -87,15 +88,15 @@
                 </template>
             </tbody>
         </table>
-
-        <nav>
-            <ul class="pagination justify-content-center">
-                <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in customers.links">
-                    <Link :href="link.url" class="page-link" v-html="link.label" preserve-state />
-                </li>
-            </ul>
-        </nav>
     </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in customers.links">
+                <Link :href="link.url" class="page-link" v-html="link.label" preserve-state />
+            </li>
+        </ul>
+    </nav>
 </template>
 
 <script>

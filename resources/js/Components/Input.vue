@@ -30,7 +30,7 @@ export default {
     props: {
         modelValue: {
             type: String,
-            required: true,
+            required: false,
         },
         error: {
             type: String,
@@ -41,7 +41,7 @@ export default {
             required: false,
         },
         rows: {
-            type: Number,
+            type: String,
             required: false,
         }
     },

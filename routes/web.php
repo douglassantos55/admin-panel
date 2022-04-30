@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(SupplierController::class)->group(function () {
-        Route::get('/suppliers/index', 'index')->name('suppliers.index');
+        Route::get('/suppliers', 'index')->name('suppliers.index');
         Route::get('/suppliers/create', 'create')->name('suppliers.create');
         Route::post('/suppliers/store', 'store')->name('suppliers.store');
     });

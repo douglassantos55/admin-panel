@@ -11,6 +11,9 @@ class SupplierController extends Controller
 {
     public function index()
     {
+        Gate::authorize('view-suppliers');
+
+        return inertia('Supplier/List')->with('suppliers', Supplier::paginate());
     }
 
     public function create()
