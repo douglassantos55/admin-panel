@@ -9,11 +9,25 @@ use Illuminate\Support\Facades\Gate;
 
 class SupplierController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         Gate::authorize('view-suppliers');
 
-        return inertia('Supplier/List')->with('suppliers', Supplier::paginate());
+        $suppliers = Supplier::query();
+
+        if ($request->query()) {
+            if ($request->query('name')) {
+                $suppliers->where('social_name', 'like', '%' . $request->query('name') . '%');
+            }
+            if ($request->query('cnpj')) {
+                $suppliers->where('cnpj', 'like', '%' . $request->query('cnpj') . '%');
+            }
+        }
+
+        return inertia('Supplier/List')->with(
+            'suppliers',
+            $suppliers->paginate()->appends($request->query())
+        );
     }
 
     public function create()

@@ -50,4 +50,50 @@ class ListSuppliersTest extends TestCase
             $page->component('Supplier/List')->has('suppliers.data', 15)
         );
     }
+
+    public function test_filters_results_by_name()
+    {
+        Auth::login(User::factory()->create());
+
+        Supplier::factory()->count(9)->create();
+        Supplier::factory()->create(['social_name' => 'Coca-Cola']);
+
+        $response = $this->get(route('suppliers.index', ['name' => 'coca']));
+
+        $response->assertInertia(
+            fn (AssertableInertia $page) =>
+            $page->component('Supplier/List')->has('suppliers.data', 1)
+        );
+    }
+
+    public function test_filters_results_by_cnpj()
+    {
+        Auth::login(User::factory()->create());
+
+        Supplier::factory()->count(9)->create();
+        Supplier::factory()->create(['cnpj' => '00.333.178/0001-54']);
+
+        $response = $this->get(route('suppliers.index', ['cnpj' => '333']));
+
+        $response->assertInertia(
+            fn (AssertableInertia $page) =>
+            $page->component('Supplier/List')->has('suppliers.data', 1)
+        );
+    }
+
+    public function test_filters_results_by_both_name_and_cnpj()
+    {
+        Auth::login(User::factory()->create());
+        Supplier::factory()->count(8)->create();
+
+        Supplier::factory()->create(['social_name' => 'Coca-Cola']);
+        Supplier::factory()->create(['cnpj' => '00.333.178/0001-54']);
+
+        $response = $this->get(route('suppliers.index', ['name' => 'coca', 'cnpj' => '333']));
+
+        $response->assertInertia(
+            fn (AssertableInertia $page) =>
+            $page->component('Supplier/List')->has('suppliers.data', 0)
+        );
+    }
 }
