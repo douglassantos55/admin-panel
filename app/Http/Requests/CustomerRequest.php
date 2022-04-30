@@ -49,7 +49,7 @@ class CustomerRequest extends FormRequest
         $validator->after(function () {
             $this->replace([
                 ...$this->except('address'),
-                ...$this->post('address'),
+                ...$this->input('address'),
             ]);
         });
     }

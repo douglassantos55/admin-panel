@@ -77,14 +77,14 @@ class UpdateCustomerTest extends TestCase
         ]);
 
         $response->assertInvalid([
-            'name' => 'O campo nome e obrigatorio.',
-            'email' => 'O campo email deve ser um endereco de email valido.',
-            'birthdate' => 'O campo data de nascimento nao e uma data valida.',
-            'cpf_cnpj' => 'O campo CPF/CNPJ nao e valido.',
-            'phone' => 'O campo telefone nao e valido.',
-            'cellphone' => 'O campo celular nao e valido.',
+            'name' => 'O campo Nome é obrigatório.',
+            'email' => 'O campo E-mail deve conter um endereço de e-mail válido.',
+            'birthdate' => 'O campo Data de nascimento não é uma data válida.',
+            'cpf_cnpj' => 'O campo CPF/CNPJ não é válido.',
+            'phone' => 'O campo Telefone não é válido.',
+            'cellphone' => 'O campo Celular não é válido.',
             'address.state' => 'O campo UF deve conter 2 caracteres.',
-            'address.postcode' => 'O campo CEP nao e valido.',
+            'address.postcode' => 'O campo CEP não é válido.',
         ]);
     }
 

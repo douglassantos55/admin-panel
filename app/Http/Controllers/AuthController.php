@@ -43,7 +43,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Nenhum usuario encontrado para o e-mail e senha informados.',
+            'email' => 'Nenhum usuário encontrado para o e-mail e senha informados.'
         ]);
     }
 }

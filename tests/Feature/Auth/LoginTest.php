@@ -42,7 +42,7 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertInvalid([
-            'email' => 'O campo email deve ser um endereco de email valido.'
+            'email' => 'O campo E-mail deve conter um endereço de e-mail válido.'
         ]);
     }
 
@@ -54,7 +54,7 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertInvalid([
-            'email' => 'Nenhum usuario encontrado para o e-mail e senha informados.'
+            'email' => 'Nenhum usuário encontrado para o e-mail e senha informados.'
         ]);
     }
 
@@ -68,7 +68,7 @@ class LoginTest extends TestCase
         ]);
 
         $response->assertInvalid([
-            'email' => 'Nenhum usuario encontrado para o e-mail e senha informados.'
+            'email' => 'Nenhum usuário encontrado para o e-mail e senha informados.'
         ]);
     }
 
