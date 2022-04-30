@@ -27,7 +27,17 @@ class ListCustomerTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function test_lists_users()
+    public function test_renders_component()
+    {
+        Auth::login(User::factory()->create(['role' => 'receptionist']));
+        $response = $this->get(route('customers.index'));
+
+        $response->assertInertia(
+            fn (AssertableInertia $page) => $page->component('Customer/List')
+        );
+    }
+
+    public function test_paginates_results()
     {
         Auth::login(User::factory()->create(['role' => 'receptionist']));
 
@@ -36,7 +46,7 @@ class ListCustomerTest extends TestCase
 
         $response->assertInertia(
             fn (AssertableInertia $page) =>
-                $page->component('Customer/List')->has('customers', 10)
+            $page->component('Customer/List')->has('customers.data', 10)
         );
     }
 }

@@ -12,7 +12,7 @@ class CustomerController extends Controller
     {
         Gate::authorize('view-customers');
 
-        return inertia('Customer/List')->with('customers', Customer::all());
+        return inertia('Customer/List')->with('customers', Customer::paginate());
     }
 
     public function create()

@@ -18,12 +18,12 @@
             </thead>
 
             <tbody>
-                <tr v-if="customers.length === 0">
+                <tr v-if="customers.data.length === 0">
                     <td class="text-center" colspan="6">Nenhum cliente cadastrado até o momento.</td>
                 </tr>
 
                 <template v-else>
-                    <tr v-for="customer in customers" :key="customer.id">
+                    <tr v-for="customer in customers.data" :key="customer.id">
                         <td>{{ customer.name }}</td>
                         <td>{{ customer.cpf_cnpj }}</td>
                         <td>{{ customer.rg_insc_est }}</td>
@@ -51,6 +51,14 @@
                 </template>
             </tbody>
         </table>
+
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in customers.links">
+                    <Link :href="link.url" class="page-link" v-html="link.label" />
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
