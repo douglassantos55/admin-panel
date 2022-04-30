@@ -1,14 +1,15 @@
 <script setup>
 import { watch } from 'vue'
+import { Link } from '@inertiajs/inertia-vue3'
 import Input from '../../Components/Input.vue'
-import { Link, useForm } from '@inertiajs/inertia-vue3'
+import useForm from '../../Composables/useForm'
 import AddressForm from '../../Components/AddressForm.vue'
 
 const { customer } = defineProps({
     customer: Object,
 })
 
-const form = useForm(customer || {
+const { form, submit } = useForm(customer || {
     name: '',
     email: '',
     cpf_cnpj: '',
@@ -28,16 +29,6 @@ const form = useForm(customer || {
     },
     observations: '',
 })
-
-function submit() {
-    form.clearErrors()
-
-    if (customer) {
-        form.put(route('customers.update', customer.id), { preserveScroll: true })
-    } else {
-        form.post(route('customers.store'), { preserveScroll: true })
-    }
-}
 </script>
 
 <template>
@@ -46,7 +37,7 @@ function submit() {
         <Link :href="route('customers.index')" class="btn btn-link">Voltar</Link>
     </div>
 
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit('customers')">
         <div class="row">
             <Input
                 required

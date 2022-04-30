@@ -1,9 +1,14 @@
 <template>
     <div class="mb-3" :class="$attrs.class">
-        <label :for="id" class="form-label" v-if="label">{{ label }}</label>
-        <input
+        <label :for="id" class="form-label" v-if="label">
+            {{ label }}
+            <span class="text-danger" v-if="$attrs.required != undefined">*</span>
+        </label>
+
+        <component :is="component"
             :id="id"
             ref="input"
+            :rows="rows"
             v-bind="$attrs"
             :value="modelValue"
             class="form-control"
@@ -35,6 +40,10 @@ export default {
             type: String,
             required: false,
         },
+        rows: {
+            type: Number,
+            required: false,
+        }
     },
     setup(props, context) {
         const input = ref(null)
@@ -44,7 +53,9 @@ export default {
             input && input.value.focus()
         }
 
-        return { id, input, focus }
+        const component = props.rows ? 'textarea' : 'input'
+
+        return { id, input, focus, component }
     },
 }
 </script>

@@ -32,7 +32,11 @@ watch(() => usePage().props.value.flash, message => {
                         </li>
 
                         <li class="nav-item">
-                            <Link href="/customers" class="nav-link">Clientes</Link>
+                            <Link :href="route('customers.index')" class="nav-link">Clientes</Link>
+                        </li>
+
+                        <li class="nav-item">
+                            <Link :href="route('suppliers.index')" class="nav-link">Fornecedores</Link>
                         </li>
                     </ul>
                 </div>

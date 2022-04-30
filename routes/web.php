@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,12 @@ Route::middleware('auth')->group(function () {
         Route::delete('/customers/{customer}', 'destroy')->name('customers.destroy');
         Route::get('/customers/edit/{customer}', 'edit')->name('customers.edit');
         Route::put('/customers/update/{customer}', 'update')->name('customers.update');
+    });
+
+    Route::controller(SupplierController::class)->group(function () {
+        Route::get('/suppliers/index', 'index')->name('suppliers.index');
+        Route::get('/suppliers/create', 'create')->name('suppliers.create');
+        Route::post('/suppliers/store', 'store')->name('suppliers.store');
     });
 
     Route::get('/', function () {
