@@ -42,7 +42,7 @@ function submit() {
 
 <template>
     <div class="mb-4 d-flex align-items-center justify-content-between">
-        <h1>Cadastrar cliente</h1>
+        <h1>{{ customer ? 'Editar' : 'Cadastrar' }} cliente</h1>
         <Link :href="route('customers.index')" class="btn btn-link">Voltar</Link>
     </div>
 
@@ -116,7 +116,9 @@ function submit() {
         />
 
         <div class="mb-4 d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary" :disabled="form.processing">
+                {{ customer ? 'Editar' : 'Cadastrar' }}
+            </button>
             <Link :href="route('customers.index')" class="btn btn-secondary">Voltar</Link>
         </div>
     </form>

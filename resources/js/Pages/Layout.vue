@@ -1,5 +1,14 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
+import { watch } from 'vue'
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
+import { Link, usePage } from '@inertiajs/inertia-vue3'
+
+watch(() => usePage().props.value.flash, message => {
+    if (message) {
+        Toastify({ text: message }).showToast()
+    }
+})
 </script>
 
 <template>

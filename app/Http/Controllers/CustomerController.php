@@ -34,18 +34,18 @@ class CustomerController extends Controller
         Gate::authorize('destroy-customer');
 
         $customer->delete();
-        return redirect()->route('customers.index');
+        return redirect()->route('customers.index')->with('flash', 'Cliente excluido');
     }
 
     public function store(CustomerRequest $request)
     {
         Customer::create($request->input());
-        return redirect()->route('customers.index');
+        return redirect()->route('customers.index')->with('flash', 'Cliente cadastrado');
     }
 
     public function update(Customer $customer, CustomerRequest $request)
     {
         $customer->update($request->input());
-        return redirect()->route('customers.index');
+        return redirect()->route('customers.index')->with('flash', 'Dados atualizados');
     }
 }
