@@ -121,9 +121,11 @@ return [
     'roles' => [
         'receptionist' => [
             // customers
-            'view-customers', 'create-customer', 'update-customer',
+            'view-customers', 'create-customer', 'update-customer', 'destroy-customer',
+            // suppliers
+            'view-suppliers', 'create-supplier', 'update-supplier', 'destroy-supplier',
             // rents
-            'view-rents', 'create-rent', 'update-rent',
+            'view-rents', 'create-rent', 'update-rent', 'destroy-rent',
         ],
         'accountant' => [
             'view-rents',
