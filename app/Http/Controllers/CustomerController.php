@@ -3,16 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         Gate::authorize('view-customers');
 
-        return inertia('Customer/List')->with('customers', Customer::paginate());
+        $customers = Customer::query();
+
+        if ($request->query()) {
+            if ($name = $request->query('name')) {
+                $customers->where('name', 'like', '%' . $name . '%');
+            }
+            if ($cpf_cnpj = $request->query('cpf_cnpj')) {
+                $customers->where('cpf_cnpj', 'like', '%' . $cpf_cnpj . '%');
+            }
+        }
+
+        return inertia('Customer/List')->with(
+            'customers',
+            $customers->paginate()->appends($request->query())
+        );
     }
 
     public function create()

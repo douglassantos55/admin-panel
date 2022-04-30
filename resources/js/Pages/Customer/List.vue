@@ -4,6 +4,42 @@
         <Link :href="route('customers.create')" class="btn btn-primary">Cadastrar</Link>
     </div>
 
+    <form>
+        <div class="row">
+            <div class="col-xs-12 col-sm-5">
+                <Input label="" v-model="filters.name" placeholder="Nome" />
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+                <Input
+                    label=""
+                    placeholder="CPF/CNPJ"
+                    v-model="filters.cpf_cnpj"
+                    v-maska="['###.###.###-##', '##.###.###/####-##']"
+                />
+            </div>
+
+            <div class="col-xs-12 col-sm-3">
+                <Link
+                    as="button"
+                    preserve-state
+                    class="btn btn-secondary"
+                    :data="filters"
+                >
+                    Filtrar
+                </Link>
+
+                <Link
+                    class="btn btn-link"
+                    :href="route('customers.index')"
+                    v-if="filters.name || filters.cpf_cnpj"
+                >
+                    Limpar filtros
+                </Link>
+            </div>
+        </div>
+    </form>
+
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
@@ -55,7 +91,7 @@
         <nav>
             <ul class="pagination justify-content-center">
                 <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in customers.links">
-                    <Link :href="link.url" class="page-link" v-html="link.label" />
+                    <Link :href="link.url" class="page-link" v-html="link.label" preserve-state />
                 </li>
             </ul>
         </nav>
@@ -64,16 +100,26 @@
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3'
+import Input from '../../Components/Input.vue'
 
 export default {
     components: {
         Link,
+        Input,
     },
     props: {
         customers: {
-            type: Array,
+            type: Object,
             required: true,
         },
+    },
+    data() {
+        return {
+            filters: {
+                name: '',
+                cpf_cnpj: '',
+            },
+        }
     },
     methods: {
         formatAddress(address) {
