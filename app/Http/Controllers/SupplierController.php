@@ -2,32 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Filters;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\SupplierRequest;
 
 class SupplierController extends Controller
 {
-    public function index(Request $request)
+    public function index(Filters $filters)
     {
         Gate::authorize('view-suppliers');
 
-        $suppliers = Supplier::query();
+        $suppliers = $filters
+            ->like('cnpj', 'cnpj')
+            ->like('name', 'social_name')
+            ->apply(Supplier::query());
 
-        if ($request->query()) {
-            if ($request->query('name')) {
-                $suppliers->where('social_name', 'like', '%' . $request->query('name') . '%');
-            }
-            if ($request->query('cnpj')) {
-                $suppliers->where('cnpj', 'like', '%' . $request->query('cnpj') . '%');
-            }
-        }
-
-        return inertia('Supplier/List')->with(
-            'suppliers',
-            $suppliers->paginate()->appends($request->query())
-        );
+        return inertia('Supplier/List')->with('suppliers', $suppliers);
     }
 
     public function create()

@@ -2,32 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Filters;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
-    public function index(Request $request)
+    public function index(Filters $filters)
     {
         Gate::authorize('view-customers');
 
-        $customers = Customer::query();
+        $customers = $filters
+            ->like('name', 'name')
+            ->like('cpf_cnpj', 'cpf_cnpj')
+            ->apply(Customer::query());
 
-        if ($request->query()) {
-            if ($name = $request->query('name')) {
-                $customers->where('name', 'like', '%' . $name . '%');
-            }
-            if ($cpf_cnpj = $request->query('cpf_cnpj')) {
-                $customers->where('cpf_cnpj', 'like', '%' . $cpf_cnpj . '%');
-            }
-        }
-
-        return inertia('Customer/List')->with(
-            'customers',
-            $customers->paginate()->appends($request->query())
-        );
+        return inertia('Customer/List')->with('customers', $customers);
     }
 
     public function create()
