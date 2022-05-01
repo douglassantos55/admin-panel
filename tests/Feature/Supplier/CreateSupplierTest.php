@@ -296,4 +296,58 @@ class CreateSupplierTest extends TestCase
             'cnpj' => 'Este CNPJ já foi cadastrado.',
         ]);
     }
+
+    public function test_cellphone()
+    {
+        Auth::login(User::factory()->create());
+
+        $this->post(route('suppliers.store'), [
+            'social_name' => 'Coca-Cola',
+            'legal_name' => 'Coca Cola SA',
+            'email' => 'contact@cocacola.com',
+            'website' => 'https://cocacola.com',
+            'cnpj' => '71.640.879/0001-84',
+            'insc_est' => '',
+            'phone' => '(19) 95880-3583',
+            'address' => [
+                'street' => 'Rua abc',
+                'number' => '3458',
+                'neighborhood' => 'Centro',
+                'complement' => '',
+                'city' => 'Rio de Janeiro',
+                'state' => 'RJ',
+                'postcode' => '30348-355',
+            ],
+            'observations' => '',
+        ]);
+
+        $this->assertModelExists(Supplier::where('social_name', 'Coca-Cola')->first());
+    }
+
+    public function test_flash_message()
+    {
+        Auth::login(User::factory()->create());
+
+        $response = $this->post(route('suppliers.store'), [
+            'social_name' => 'Coca-Cola',
+            'legal_name' => 'Coca Cola SA',
+            'email' => 'contact@cocacola.com',
+            'website' => 'https://cocacola.com',
+            'cnpj' => '71.640.879/0001-84',
+            'insc_est' => '',
+            'phone' => '(19) 95880-3583',
+            'address' => [
+                'street' => 'Rua abc',
+                'number' => '3458',
+                'neighborhood' => 'Centro',
+                'complement' => '',
+                'city' => 'Rio de Janeiro',
+                'state' => 'RJ',
+                'postcode' => '30348-355',
+            ],
+            'observations' => '',
+        ]);
+
+        $response->assertSessionHas('flash', 'Fornecedor cadastrado');
+    }
 }

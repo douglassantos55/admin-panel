@@ -4,7 +4,14 @@ import Input from '../../Components/Input.vue'
 import useForm from '../../Composables/useForm'
 import AddressForm from '../../Components/AddressForm.vue'
 
-const { form, submit } = useForm({
+const props = defineProps({
+    supplier: {
+        type: Object,
+        required: false,
+    },
+})
+
+const { form, submit } = useForm(props.supplier || {
     social_name: '',
     legal_name: '',
     cnpj: '',
@@ -25,7 +32,9 @@ const { form, submit } = useForm({
 </script>
 
 <template>
-    <h1 class="mb-4">Cadastrar fornecedor</h1>
+    <h1 class="mb-4">
+        {{ supplier ? 'Editar' : 'Cadastrar' }} fornecedor
+    </h1>
 
     <form @submit.prevent="submit('suppliers')">
         <div class="row">
@@ -92,8 +101,13 @@ const { form, submit } = useForm({
         <Input label="Observações" v-model="form.observations" rows="3" />
 
         <div class="d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
-            <Link class="btn btn-secondary" :href="route('suppliers.index')">Voltar</Link>
+            <button type="submit" class="btn btn-primary">
+                {{ supplier ? 'Editar' : 'Cadastrar' }}
+            </button>
+
+            <Link class="btn btn-secondary" :href="route('suppliers.index')">
+                Voltar
+            </Link>
         </div>
     </form>
 </template>

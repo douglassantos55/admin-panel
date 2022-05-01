@@ -1,3 +1,22 @@
+<script setup>
+import { reactive } from 'vue'
+import { Link } from '@inertiajs/inertia-vue3'
+import Input from '../../Components/Input.vue'
+import Address from '../../Components/Address.vue'
+
+const props = defineProps({
+    customers: {
+        type: Object,
+        required: true,
+    },
+})
+
+const filters = reactive({
+    name: '',
+    cpf_cnpj: '',
+})
+</script>
+
 <template>
     <div class="mb-4 d-flex align-items-center justify-content-between">
         <h1>Clientes</h1>
@@ -46,9 +65,7 @@
                 <tr>
                     <th>Nome</th>
                     <th>CPF/CNPJ</th>
-                    <th>RG/Insc. Est.</th>
                     <th>E-mail</th>
-                    <th>Telefone<br>Celular</th>
                     <th>Endereço</th>
                     <th>&nbsp;</th>
                 </tr>
@@ -63,26 +80,20 @@
                     <tr v-for="customer in customers.data" :key="customer.id">
                         <td>{{ customer.name }}</td>
                         <td>{{ customer.cpf_cnpj }}</td>
-                        <td>{{ customer.rg_insc_est }}</td>
                         <td>{{ customer.email }}</td>
                         <td>
-                            <span class="d-block" v-if="customer.phone">
-                                {{ customer.phone }}
-                            </span>
-
-                            <span class="d-block" v-if="customer.cellphone">
-                                {{ customer.cellphone }}
-                            </span>
+                            <Address :address="customer.address" />
                         </td>
-                        <td>{{ formatAddress(customer.address) }}</td>
                         <td>
-                            <Link class="btn btn-secondary" :href="route('customers.edit', customer.id)">
+                            <div class="d-flex gap-2">
+                            <Link class="btn btn-sm btn-secondary" :href="route('customers.edit', customer.id)">
                                 Editar
                             </Link>
 
-                            <Link as="button" class="btn btn-danger" :href="route('customers.destroy', customer.id)" method="delete">
+                            <Link as="button" class="btn btn-sm btn-danger" :href="route('customers.destroy', customer.id)" method="delete">
                                 Excluir
                             </Link>
+                            </div>
                         </td>
                     </tr>
                 </template>
@@ -99,38 +110,3 @@
     </nav>
 </template>
 
-<script>
-import { Link } from '@inertiajs/inertia-vue3'
-import Input from '../../Components/Input.vue'
-
-export default {
-    components: {
-        Link,
-        Input,
-    },
-    props: {
-        customers: {
-            type: Object,
-            required: true,
-        },
-    },
-    data() {
-        return {
-            filters: {
-                name: '',
-                cpf_cnpj: '',
-            },
-        }
-    },
-    methods: {
-        formatAddress(address) {
-            return [
-                address.postcode,
-                address.neighborhood,
-                address.city,
-                address.state,
-            ].filter(value => value).join(', ')
-        },
-    },
-}
-</script>

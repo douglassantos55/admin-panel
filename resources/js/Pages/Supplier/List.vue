@@ -1,5 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
+import Address from '../../Components/Address.vue'
 
 defineProps({
     suppliers: {
@@ -7,6 +8,7 @@ defineProps({
         required: true,
     },
 })
+
 </script>
 
 <template>
@@ -33,12 +35,23 @@ defineProps({
 
             <tbody>
                 <tr v-for="supplier in suppliers.data" :key="supplier.id">
-                    <td>{{ supplier.social_name }}</td>
+                    <td>
+                        {{ supplier.social_name }}
+                        <small class="d-block text-muted">
+                            {{ supplier.legal_name }}
+                        </small>
+                    </td>
                     <td>{{ supplier.email }}</td>
                     <td>{{ supplier.cnpj }}</td>
                     <td>{{ supplier.phone }}</td>
-                    <td>{{ supplier.street }}</td>
-                    <td></td>
+                    <td>
+                        <Address :address="supplier.address" />
+                    </td>
+                    <td>
+                        <Link :href="route('suppliers.edit', supplier.id)" class="btn btn-sm btn-secondary">
+                            Editar
+                        </Link>
+                    </td>
                 </tr>
             </tbody>
         </table>

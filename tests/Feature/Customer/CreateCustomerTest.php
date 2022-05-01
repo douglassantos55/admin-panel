@@ -324,4 +324,32 @@ class CreateCustomerTest extends TestCase
             'cpf_cnpj' => 'Este CPF/CNPJ já foi cadastrado.',
         ]);
     }
+
+    public function test_flash_message()
+    {
+        Auth::login(User::factory()->create());
+
+        $response = $this->post(route('customers.store'), [
+            'name' => 'John Doe',
+            'email' => 'email@domain.com',
+            'birthdate' => '2000-12-23',
+            'cpf_cnpj' => '926.395.660-08',
+            'rg_insc_est' => '',
+            'phone' => '(19) 3333-3333',
+            'cellphone' => '(19) 98888-4433',
+            'ocupation' => 'Developer',
+            'address' => array(
+                'street' => 'Av 9 de Abril',
+                'number' => '2346',
+                'complement' => '',
+                'neighborhood' => 'Centro',
+                'city' => 'Mogi Guacu',
+                'state' => 'SP',
+                'postcode' => '13840-000',
+            ),
+            'observations' => 'observation',
+        ]);
+
+        $response->assertSessionHas('flash', 'Cliente cadastrado');
+    }
 }

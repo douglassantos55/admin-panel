@@ -154,4 +154,33 @@ class UpdateCustomerTest extends TestCase
         $this->assertEquals('updated', $customer->refresh()->observations);
         $this->assertEquals('rua abc', $customer->refresh()->street);
     }
+
+    public function test_flash_message()
+    {
+        Auth::login(User::factory()->create());
+        $customer = Customer::factory()->create();
+
+        $response = $this->put(route('customers.update', $customer->id), [
+            'name' => $customer->name,
+            'email' => $customer->email,
+            'birthdate' => $customer->birthdate,
+            'cpf_cnpj' => $customer->cpf_cnpj,
+            'rg_insc_est' => '',
+            'phone' => '',
+            'cellphone' => '',
+            'ocupation' => '',
+            'address' => array(
+                'street' => 'rua abc',
+                'number' => '',
+                'complement' => '',
+                'neighborhood' => '',
+                'city' => '',
+                'state' => '',
+                'postcode' => '',
+            ),
+            'observations' => 'updated',
+        ]);
+
+        $response->assertSessionHas('flash', 'Dados atualizados');
+    }
 }
