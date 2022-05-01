@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/suppliers/store', 'store')->name('suppliers.store');
         Route::get('/suppliers/edit/{supplier}', 'edit')->name('suppliers.edit');
         Route::put('/suppliers/update/{supplier}', 'update')->name('suppliers.update');
+        Route::delete('/suppliers/destroy/{supplier}', 'destroy')->name('suppliers.destroy');
     });
 
     Route::get('/', function () {

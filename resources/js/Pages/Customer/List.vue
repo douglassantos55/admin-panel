@@ -86,13 +86,13 @@ const filters = reactive({
                         </td>
                         <td>
                             <div class="d-flex gap-2">
-                            <Link class="btn btn-sm btn-secondary" :href="route('customers.edit', customer.id)">
-                                Editar
-                            </Link>
+                                <Link class="btn btn-sm btn-secondary" :href="route('customers.edit', customer.id)">
+                                    Editar
+                                </Link>
 
-                            <Link as="button" class="btn btn-sm btn-danger" :href="route('customers.destroy', customer.id)" method="delete">
-                                Excluir
-                            </Link>
+                                <Link as="button" class="btn btn-sm btn-danger" :href="route('customers.destroy', customer.id)" method="delete">
+                                    Excluir
+                                </Link>
                             </div>
                         </td>
                     </tr>

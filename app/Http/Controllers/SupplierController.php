@@ -44,6 +44,17 @@ class SupplierController extends Controller
         return inertia('Supplier/Form')->with('supplier', $supplier);
     }
 
+    public function destroy(Supplier $supplier)
+    {
+        Gate::authorize('destroy-supplier');
+
+        $supplier->delete();
+
+        return redirect()
+            ->route('suppliers.index')
+            ->with('flash', 'Fornecedor excluido');
+    }
+
     public function store(SupplierRequest $request)
     {
         Supplier::create($request->input());

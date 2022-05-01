@@ -48,9 +48,15 @@ defineProps({
                         <Address :address="supplier.address" />
                     </td>
                     <td>
-                        <Link :href="route('suppliers.edit', supplier.id)" class="btn btn-sm btn-secondary">
-                            Editar
-                        </Link>
+                        <div class="d-flex gap-2">
+                            <Link :href="route('suppliers.edit', supplier.id)" class="btn btn-sm btn-secondary">
+                                Editar
+                            </Link>
+
+                            <Link as="button" :href="route('suppliers.destroy', supplier.id)" method="delete" class="btn btn-sm btn-danger">
+                                Excluir
+                            </Link>
+                        </div>
                     </td>
                 </tr>
             </tbody>
