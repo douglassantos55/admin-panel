@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Period;
-use Illuminate\Http\Request;
+use App\Http\Requests\PeriodRequest;
 use Illuminate\Support\Facades\Gate;
 
 class PeriodController extends Controller
@@ -22,19 +22,28 @@ class PeriodController extends Controller
         return inertia('Period/Form');
     }
 
-    public function store(Request $request)
+    public function edit(Period $period)
     {
-        Gate::authorize('create-period');
+        Gate::authorize('update-period');
 
-        $validated = $request->validate([
-            'name' => ['required'],
-            'qty_days' => ['required', 'integer'],
-        ]);
+        return inertia('Period/Form')->with('period', $period);
+    }
 
-        Period::create($validated);
+    public function store(PeriodRequest $request)
+    {
+        Period::create($request->input());
 
         return redirect()
             ->route('periods.index')
             ->with('flash', 'Período cadastrado');
+    }
+
+    public function update(PeriodRequest $request, Period $period)
+    {
+        $period->update($request->input());
+
+        return redirect()
+            ->route('periods.index')
+            ->with('flash', 'Dados atualizados');
     }
 }

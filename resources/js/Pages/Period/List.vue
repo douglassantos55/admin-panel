@@ -40,11 +40,18 @@ defineProps({
                         <td>{{ period.qty_days }}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-end">
-                                <Link class="btn btn-sm btn-secondary">
+                                <Link
+                                    class="btn btn-sm btn-secondary"
+                                    :href="route('periods.edit', period.id)"
+                                >
                                     Editar
                                 </Link>
 
-                                <Link as="button" method="delete" class="btn btn-sm btn-danger">
+                                <Link
+                                    as="button"
+                                    method="delete"
+                                    class="btn btn-sm btn-danger"
+                                >
                                     Excluir
                                 </Link>
                             </div>

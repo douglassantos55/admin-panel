@@ -3,14 +3,18 @@ import { Link } from '@inertiajs/inertia-vue3'
 import Input from '../../Components/Input.vue'
 import useForm from '../../Composables/useForm'
 
-const { form, submit } = useForm({
+const props = defineProps({
+    period: Object,
+})
+
+const { form, submit } = useForm(props.period || {
     name: '',
     qty_days: '',
 })
 </script>
 
 <template>
-    <h1 class="mb-4">Cadastrar período</h1>
+    <h1 class="mb-4">{{ period ? 'Editar' : 'Cadastrar' }} período</h1>
 
     <form @submit.prevent="submit('periods')">
         <div class="row">
@@ -33,7 +37,10 @@ const { form, submit } = useForm({
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">
+                {{ period ? 'Editar' : 'Cadastrar' }}
+            </button>
+
             <Link :href="route('periods.index')" class="btn btn-secondary">Voltar</Link>
         </div>
     </form>

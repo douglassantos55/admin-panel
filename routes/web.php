@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/periods/create', 'create')->name('periods.create');
         Route::post('/periods/store', 'store')->name('periods.store');
         Route::get('/periods', 'index')->name('periods.index');
+        Route::get('/periods/edit/{period}', 'edit')->name('periods.edit');
+        Route::put('/periods/update/{period}', 'update')->name('periods.update');
     });
 
     Route::get('/', function () {
