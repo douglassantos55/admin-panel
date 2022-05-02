@@ -1,5 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
+import Input from '../../Components/Input.vue'
+import Filter from '../../Components/Filter.vue'
 import Address from '../../Components/Address.vue'
 
 defineProps({
@@ -8,7 +10,6 @@ defineProps({
         required: true,
     },
 })
-
 </script>
 
 <template>
@@ -19,6 +20,21 @@ defineProps({
             Cadastrar
         </Link>
     </div>
+
+    <Filter class="mb-3" :filters="{ name: '', cnpj: '' }" v-slot="{ filters }">
+        <div class="col-xs-12 col-sm-5">
+            <Input label="" v-model="filters.name" placeholder="Nome" />
+        </div>
+
+        <div class="col-xs-12 col-sm-4">
+            <Input
+                label=""
+                placeholder="CNPJ"
+                v-model="filters.cnpj"
+                v-maska="'##.###.###/####-##'"
+            />
+        </div>
+    </Filter>
 
     <div class="table-responsive">
         <table class="table align-middle">
@@ -65,7 +81,7 @@ defineProps({
 
     <nav>
         <ul class="pagination justify-content-center">
-            <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in suppliers.links">
+            <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in suppliers.links" :key="link">
                 <Link :href="link.url" class="page-link" v-html="link.label" preserve-state />
             </li>
         </ul>

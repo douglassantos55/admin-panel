@@ -45,7 +45,7 @@ export default {
             required: false,
         }
     },
-    setup(props, context) {
+    setup(props) {
         const input = ref(null)
         const id = useId(props.label)
 

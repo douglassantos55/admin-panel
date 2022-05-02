@@ -1,19 +1,14 @@
 <script setup>
-import { reactive } from 'vue'
 import { Link } from '@inertiajs/inertia-vue3'
 import Input from '../../Components/Input.vue'
+import Filter from '../../Components/Filter.vue'
 import Address from '../../Components/Address.vue'
 
-const props = defineProps({
+defineProps({
     customers: {
         type: Object,
         required: true,
     },
-})
-
-const filters = reactive({
-    name: '',
-    cpf_cnpj: '',
 })
 </script>
 
@@ -23,41 +18,20 @@ const filters = reactive({
         <Link :href="route('customers.create')" class="btn btn-primary">Cadastrar</Link>
     </div>
 
-    <form>
-        <div class="row">
-            <div class="col-xs-12 col-sm-5">
-                <Input label="" v-model="filters.name" placeholder="Nome" />
-            </div>
-
-            <div class="col-xs-12 col-sm-4">
-                <Input
-                    label=""
-                    placeholder="CPF/CNPJ"
-                    v-model="filters.cpf_cnpj"
-                    v-maska="['###.###.###-##', '##.###.###/####-##']"
-                />
-            </div>
-
-            <div class="col-xs-12 col-sm-3">
-                <Link
-                    as="button"
-                    preserve-state
-                    class="btn btn-secondary"
-                    :data="filters"
-                >
-                    Filtrar
-                </Link>
-
-                <Link
-                    class="btn btn-link"
-                    :href="route('customers.index')"
-                    v-if="filters.name || filters.cpf_cnpj"
-                >
-                    Limpar filtros
-                </Link>
-            </div>
+    <Filter class="mb-3" :filters="{ name: '', cpf_cnpj: '' }" v-slot="{ filters }">
+        <div class="col-xs-12 col-sm-5">
+            <Input label="" v-model="filters.name" placeholder="Nome" />
         </div>
-    </form>
+
+        <div class="col-xs-12 col-sm-4">
+            <Input
+                label=""
+                placeholder="CPF/CNPJ"
+                v-model="filters.cpf_cnpj"
+                v-maska="['###.###.###-##', '##.###.###/####-##']"
+            />
+        </div>
+    </Filter>
 
     <div class="table-responsive">
         <table class="table align-middle">
