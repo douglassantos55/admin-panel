@@ -106,6 +106,8 @@ const { form, submit } = useForm(customer || {
             v-model:errors="form.errors"
         />
 
+        <Input label="Observações" v-model="form.observations" rows="3" />
+
         <div class="mb-4 d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-primary" :disabled="form.processing">
                 {{ customer ? 'Editar' : 'Cadastrar' }}
