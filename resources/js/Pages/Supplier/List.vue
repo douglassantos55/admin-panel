@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/inertia-vue3'
 import Input from '../../Components/Input.vue'
 import Filter from '../../Components/Filter.vue'
 import Address from '../../Components/Address.vue'
+import Pagination from '../../Components/Pagination.vue'
 
 defineProps({
     suppliers: {
@@ -50,40 +51,40 @@ defineProps({
             </thead>
 
             <tbody>
-                <tr v-for="supplier in suppliers.data" :key="supplier.id">
-                    <td>
-                        {{ supplier.social_name }}
-                        <small class="d-block text-muted">
-                            {{ supplier.legal_name }}
-                        </small>
-                    </td>
-                    <td>{{ supplier.email }}</td>
-                    <td>{{ supplier.cnpj }}</td>
-                    <td>{{ supplier.phone }}</td>
-                    <td>
-                        <Address :address="supplier.address" />
-                    </td>
-                    <td>
-                        <div class="d-flex gap-2">
-                            <Link :href="route('suppliers.edit', supplier.id)" class="btn btn-sm btn-secondary">
-                                Editar
-                            </Link>
-
-                            <Link as="button" :href="route('suppliers.destroy', supplier.id)" method="delete" class="btn btn-sm btn-danger">
-                                Excluir
-                            </Link>
-                        </div>
-                    </td>
+                <tr v-if="suppliers.data.length === 0">
+                    <td class="text-center" colspan="6">Nenhum período cadastrado até o momento.</td>
                 </tr>
+
+                <template v-else>
+                    <tr v-for="supplier in suppliers.data" :key="supplier.id">
+                        <td>
+                            {{ supplier.social_name }}
+                            <small class="d-block text-muted">
+                                {{ supplier.legal_name }}
+                            </small>
+                        </td>
+                        <td>{{ supplier.email }}</td>
+                        <td>{{ supplier.cnpj }}</td>
+                        <td>{{ supplier.phone }}</td>
+                        <td>
+                            <Address :address="supplier.address" />
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <Link :href="route('suppliers.edit', supplier.id)" class="btn btn-sm btn-secondary">
+                                    Editar
+                                </Link>
+
+                                <Link as="button" :href="route('suppliers.destroy', supplier.id)" method="delete" class="btn btn-sm btn-danger">
+                                    Excluir
+                                </Link>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>
 
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in suppliers.links" :key="link">
-                <Link :href="link.url" class="page-link" v-html="link.label" preserve-state />
-            </li>
-        </ul>
-    </nav>
+    <Pagination :links="suppliers.links" :last-page="suppliers.last_page" />
 </template>

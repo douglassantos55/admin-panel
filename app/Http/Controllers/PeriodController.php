@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Gate;
 
 class PeriodController extends Controller
 {
+    public function index()
+    {
+        Gate::authorize('view-periods');
+
+        return inertia('Period/List')->with('periods', Period::paginate());
+    }
+
     public function create()
     {
         Gate::authorize('create-period');

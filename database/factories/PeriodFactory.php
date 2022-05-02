@@ -17,7 +17,8 @@ class PeriodFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'qty_days' => $this->faker->randomNumber(),
         ];
     }
 }

@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/inertia-vue3'
 import Input from '../../Components/Input.vue'
 import Filter from '../../Components/Filter.vue'
 import Address from '../../Components/Address.vue'
+import Pagination from '../../Components/Pagination.vue'
 
 defineProps({
     customers: {
@@ -47,7 +48,7 @@ defineProps({
 
             <tbody>
                 <tr v-if="customers.data.length === 0">
-                    <td class="text-center" colspan="6">Nenhum cliente cadastrado até o momento.</td>
+                    <td class="text-center" colspan="5">Nenhum cliente cadastrado até o momento.</td>
                 </tr>
 
                 <template v-else>
@@ -75,12 +76,6 @@ defineProps({
         </table>
     </div>
 
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li :class="['page-item', { disabled: !link.url, active: link.active }]" v-for="link in customers.links">
-                <Link :href="link.url" class="page-link" v-html="link.label" preserve-state />
-            </li>
-        </ul>
-    </nav>
+    <Pagination :links="customers.links" :last-page="customers.last_page" />
 </template>
 
