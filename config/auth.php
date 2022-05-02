@@ -124,6 +124,8 @@ return [
             'view-customers', 'create-customer', 'update-customer', 'destroy-customer',
             // suppliers
             'view-suppliers', 'create-supplier', 'update-supplier', 'destroy-supplier',
+            // periods
+            'view-periods', 'create-period', 'update-period', 'destroy-period',
             // rents
             'view-rents', 'create-rent', 'update-rent', 'destroy-rent',
         ],

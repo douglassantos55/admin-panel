@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\SupplierController;
 
@@ -40,6 +41,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/suppliers/edit/{supplier}', 'edit')->name('suppliers.edit');
         Route::put('/suppliers/update/{supplier}', 'update')->name('suppliers.update');
         Route::delete('/suppliers/destroy/{supplier}', 'destroy')->name('suppliers.destroy');
+    });
+
+    Route::controller(PeriodController::class)->group(function () {
+        Route::get('/periods/create', 'create')->name('periods.create');
+        Route::post('/periods/store', 'store')->name('periods.store');
+        Route::get('/periods', 'index')->name('periods.index');
     });
 
     Route::get('/', function () {
