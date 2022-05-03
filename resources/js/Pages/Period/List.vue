@@ -51,6 +51,7 @@ defineProps({
                                     as="button"
                                     method="delete"
                                     class="btn btn-sm btn-danger"
+                                    :href="route('periods.destroy', period.id)"
                                 >
                                     Excluir
                                 </Link>

@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/periods', 'index')->name('periods.index');
         Route::get('/periods/edit/{period}', 'edit')->name('periods.edit');
         Route::put('/periods/update/{period}', 'update')->name('periods.update');
+        Route::delete('/periods/destroy/{period}', 'destroy')->name('periods.destroy');
     });
 
     Route::get('/', function () {

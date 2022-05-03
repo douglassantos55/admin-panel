@@ -29,6 +29,17 @@ class PeriodController extends Controller
         return inertia('Period/Form')->with('period', $period);
     }
 
+    public function destroy(Period $period)
+    {
+        Gate::authorize('destroy-period');
+
+        $period->delete();
+
+        return redirect()
+            ->route('periods.index')
+            ->with('flash', 'Periodo excluido');
+    }
+
     public function store(PeriodRequest $request)
     {
         Period::create($request->input());
