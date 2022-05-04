@@ -197,4 +197,26 @@ class CreateEquipmentTest extends TestCase
         $this->assertEquals(0.8, $equipment->values[1]->value);
         $this->assertEquals(1.2, $equipment->values[2]->value);
     }
+
+    public function test_saves_non_validated_data()
+    {
+        Supplier::factory()->create();
+        Auth::login(User::factory()->create());
+
+        $this->post(route('equipments.store'), [
+            'description' => 'Escora',
+            'unit' => 'm/l',
+            'profit_percentage' => 5,
+            'weight' => 1.5,
+            'in_stock' => 348,
+            'effective_qty' => 300,
+            'min_qty' => 100,
+            'purchase_value' => 1500.00,
+            'unit_value' => 143.5,
+            'replace_value' => 314.00,
+        ]);
+
+        $equipment = Equipment::first();
+        $this->assertEquals('m/l', $equipment->unit);
+    }
 }

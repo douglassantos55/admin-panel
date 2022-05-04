@@ -19,11 +19,17 @@ class Filters
     private $like;
 
     /**
+     * @param array<string, string>
+     */
+    private $equals;
+
+    /**
      * @param Request $request Let the container inject current request
      */
     public function __construct(Request $request)
     {
         $this->like = [];
+        $this->equals = [];
         $this->request = $request;
     }
 
@@ -36,9 +42,19 @@ class Filters
         return $this;
     }
 
+    public function equals(string $key, string $column): Filters
+    {
+        $value = $this->request->query($key);
+        if (!empty($value)) {
+            $this->equals[$column] = $value;
+        }
+        return $this;
+    }
+
     public function apply(Builder $query): Paginator
     {
         $this->applyLike($query);
+        $this->applyEquals($query);
         return $query->paginate()->appends($this->request->query());
     }
 
@@ -46,6 +62,13 @@ class Filters
     {
         foreach ($this->like as $column => $value) {
             $query->where($column, 'like', '%' . $value . '%');
+        }
+    }
+
+    private function applyEquals(Builder $query)
+    {
+        foreach ($this->equals as $column => $value) {
+            $query->where($column, $value);
         }
     }
 }

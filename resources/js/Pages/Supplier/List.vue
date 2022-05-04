@@ -24,12 +24,12 @@ defineProps({
 
     <Filter class="mb-3" :filters="{ name: '', cnpj: '' }" v-slot="{ filters }">
         <div class="col-xs-12 col-sm-5">
-            <Input label="" v-model="filters.name" placeholder="Nome" />
+            <Input label="Nome" v-model="filters.name" placeholder="Nome" />
         </div>
 
         <div class="col-xs-12 col-sm-4">
             <Input
-                label=""
+                label="CNPJ"
                 placeholder="CNPJ"
                 v-model="filters.cnpj"
                 v-maska="'##.###.###/####-##'"

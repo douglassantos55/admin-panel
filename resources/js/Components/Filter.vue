@@ -34,6 +34,7 @@ function filter() {
 
             <slot name="actions" :filtered="filtered">
                 <div class="col-xs-12 col-sm-3">
+                    <label class="d-block mb-2">&nbsp;</label>
                     <button type="submit" class="btn btn-secondary">Filtrar</button>
 
                     <Link v-if="filtered" class="btn btn-link" :href="url">

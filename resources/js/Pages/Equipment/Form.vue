@@ -53,7 +53,7 @@ const { form, submit } = useForm({
 
             <div class="col-xs-12 col-sm-5">
                 <Input
-                    label="Descricao"
+                    label="Descrição"
                     v-model="form.description"
                     :error="form.errors.description"
                 />
@@ -154,7 +154,10 @@ const { form, submit } = useForm({
 
         <div class="d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-primary">Cadastrar</button>
-            <Link class="btn btn-link">Voltar</Link>
+
+            <Link class="btn btn-link" :href="route('equipments.index')">
+                Voltar
+            </Link>
         </div>
     </form>
 </template>
