@@ -5,22 +5,17 @@
             <span class="text-danger" v-if="$attrs.required != undefined">*</span>
         </label>
 
-        <component :is="component"
+        <input
             :id="id"
-            ref="input"
-            :rows="rows"
-            v-bind="$attrs"
-            :value="modelValue"
-            class="form-control"
-            :class="{ 'is-invalid': !!error }"
-            @input="$emit('update:modelValue', $event.target.value)"
+            ref="inputRef"
+            :class="['form-control', { 'is-invalid': !!error }]"
         />
         <div class="invalid-feedback" v-if="error">{{ error }}</div>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { watch } from 'vue'
 import useId from '../Composables/useId'
 import { useCurrencyInput } from 'vue-currency-input'
 
@@ -41,41 +36,33 @@ export default {
             type: String,
             required: false,
         },
-        rows: {
-            type: String,
-            required: false,
-        },
-        decimal: {
-            type: Boolean,
-            required: false,
-        },
         currency: {
             type: Boolean,
             required: false,
         },
     },
     setup(props) {
-        let input = ref(null)
         const id = useId(props.label)
 
-        if (props.decimal || props.currency) {
-            const { inputRef } = useCurrencyInput({
-                locale: 'pt-BR',
-                currency: 'BRL',
-                useGrouping: true,
-                precision: 2,
-                currencyDisplay: 'symbol',
-            })
-            input = inputRef
+        const options = {
+            locale: "pt-BR",
+            useGrouping: true,
+            precision: 2,
+            currency: "BRL",
+            currencyDisplay: "hidden",
+            hideGroupingSeparatorOnFocus: false,
         }
 
-        function focus() {
-            input && input.value.focus()
+        if (props.currency) {
+            options.currencyDisplay = "symbol"
+            options.hideCurrencySymbolOnFocus = false
         }
 
-        const component = props.rows ? 'textarea' : 'input'
+        const { inputRef, setValue } = useCurrencyInput(options)
 
-        return { id, input, focus, component }
+        watch(() => props.modelValue, value => setValue(value))
+
+        return { id, inputRef }
     },
 }
 </script>

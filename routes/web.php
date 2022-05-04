@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\SupplierController;
 
 /*
@@ -50,6 +51,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/periods/edit/{period}', 'edit')->name('periods.edit');
         Route::put('/periods/update/{period}', 'update')->name('periods.update');
         Route::delete('/periods/destroy/{period}', 'destroy')->name('periods.destroy');
+    });
+
+    Route::controller(EquipmentController::class)->group(function () {
+        Route::get('/equipments/create', 'create')->name('equipments.create');
+        Route::post('/equipments/store', 'store')->name('equipments.store');
+        Route::get('/equipments', 'index')->name('equipments.index');
     });
 
     Route::get('/', function () {

@@ -46,7 +46,7 @@ return [
     'email' => 'O campo :attribute deve conter um endereço de e-mail válido.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'enum' => 'The selected :attribute is invalid.',
-    'exists' => 'The selected :attribute is invalid.',
+    'exists' => 'O campo :attribute não é válido.',
     'file' => 'The :attribute must be a file.',
     'filled' => 'The :attribute field must have a value.',
     'gt' => [
@@ -99,7 +99,7 @@ return [
     'multiple_of' => 'The :attribute must be a multiple of :value.',
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
-    'numeric' => 'The :attribute must be a number.',
+    'numeric' => 'O campo :attribute deve ser um número.',
     'present' => 'The :attribute field must be present.',
     'prohibited' => 'The :attribute field is prohibited.',
     'prohibited_if' => 'The :attribute field is prohibited when :other is :value.',
@@ -170,6 +170,12 @@ return [
         'cellphone' => 'Celular',
         'address.state' => 'UF',
         'address.postcode' => 'CEP',
+        'description' => 'Descrição',
+        'in_stock' => 'Em estoque',
+        'effective_qty' => 'Qtd efetiva',
+        'min_qty' => 'Qtd minima',
+        'values.*.period_id' => 'Periodo',
+        'values.*.value' => 'Valor',
     ],
 
 ];
