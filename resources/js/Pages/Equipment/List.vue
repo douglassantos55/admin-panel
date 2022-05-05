@@ -54,24 +54,36 @@ defineProps({
 
             <tbody>
                 <tr v-if="equipments.data.length === 0">
-                    <td class="text-center" colspan="3">Nenhum equipamento cadastrado até o momento.</td>
+                    <td class="text-center" colspan="3">
+                        Nenhum equipamento cadastrado até o momento.
+                    </td>
                 </tr>
 
                 <template v-else>
                     <tr v-for="equipment in equipments.data" :key="equipment.id">
                         <td>{{ equipment.unit }}</td>
                         <td>{{ equipment.description }}</td>
-                        <td><span v-if="equipment.supplier">{{ equipment.supplier.social_name }}</span></td>
+                        <td>
+                            {{ equipment.supplier ? equipment.supplier.social_name : 'Produção própria' }}
+                        </td>
                         <td>{{ equipment.in_stock }}</td>
                         <td>{{ equipment.effective_qty }}</td>
                         <td>{{ equipment.purchase_value }}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-end">
-                                <Link class="btn btn-sm btn-secondary" :href="route('equipments.edit', equipment.id)">
+                                <Link
+                                    class="btn btn-sm btn-secondary"
+                                    :href="route('equipments.edit', equipment.id)"
+                                >
                                     Editar
                                 </Link>
 
-                                <Link as="button" class="btn btn-sm btn-danger" :href="route('equipments.destroy', equipment.id)" method="delete">
+                                <Link
+                                    as="button"
+                                    class="btn btn-sm btn-danger"
+                                    :href="route('equipments.destroy', equipment.id)"
+                                    method="delete"
+                                >
                                     Excluir
                                 </Link>
                             </div>

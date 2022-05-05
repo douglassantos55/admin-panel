@@ -70,7 +70,7 @@ class CreateEquipmentTest extends TestCase
             'description' => 'O campo Descrição é obrigatório.',
             'in_stock' => 'O campo Em estoque deve conter um número inteiro.',
             'effective_qty' => 'O campo Qtd efetiva deve conter um número inteiro.',
-            'min_qty' => 'O campo Qtd minima deve conter um número inteiro.',
+            'min_qty' => 'O campo Qtd mínima deve conter um número inteiro.',
             'values.0.period_id' => 'O campo Periodo não é válido.',
             'values.0.value' => 'O campo Valor deve ser um número.',
             'values.1.period_id' => 'O campo Periodo não é válido.',

@@ -173,10 +173,14 @@ return [
         'description' => 'Descrição',
         'in_stock' => 'Em estoque',
         'effective_qty' => 'Qtd efetiva',
-        'min_qty' => 'Qtd minima',
+        'min_qty' => 'Qtd mínima',
         'values.*.period_id' => 'Periodo',
         'values.*.value' => 'Valor',
         'supplier_id' => 'Fornecedor',
+        'weight' => 'Peso',
+        'unit_value' => 'Valor unitário',
+        'replace_value' => 'Valor reposição',
+        'purchase_value' => 'Valor compra',
     ],
 
 ];

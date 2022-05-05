@@ -59,11 +59,24 @@ class UpdateEquipmentTest extends TestCase
 
         $equipment = Equipment::factory()->create();
         $response = $this->put(route('equipments.update', $equipment->id), [
+            'in_stock' => 'a',
+            'effective_qty' => 'a',
+            'weight' => 'a',
+            'unit_value' => 'a',
+            'purchase_value' => 'a',
+            'replace_value' => 'a',
+            'min_qty' => 'a',
             'supplier_id' => 999,
         ]);
 
         $response->assertInvalid([
             'description' => 'O campo Descrição é obrigatório.',
+            'in_stock' => 'O campo Em estoque deve conter um número inteiro.',
+            'effective_qty' => 'O campo Qtd efetiva deve conter um número inteiro.',
+            'weight' => 'O campo Peso deve ser um número.',
+            'unit_value' => 'O campo Valor unitário deve ser um número.',
+            'purchase_value' => 'O campo Valor compra deve ser um número.',
+            'min_qty' => 'O campo Qtd mínima deve conter um número inteiro.',
             'supplier_id' => 'O campo Fornecedor não é válido.',
         ]);
     }
@@ -123,7 +136,7 @@ class UpdateEquipmentTest extends TestCase
             ['period_id' => 3, 'value' => 10],
         ]);
 
-        $response = $this->put(route('equipments.update', $equipment->id), [
+        $this->put(route('equipments.update', $equipment->id), [
             'description' => 'escora',
             'unit' => 'm/l',
             'values' => [

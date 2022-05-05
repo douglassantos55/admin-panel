@@ -42,7 +42,7 @@ const { form, submit } = useForm(props.equipment || {
 </script>
 
 <template>
-    <h1>Cadastrar equipamento</h1>
+    <h1 class="mb-4">{{ equipment ? 'Editar' : 'Cadastrar' }} equipamento</h1>
 
     <form @submit.prevent="submit('equipments')">
         <div class="row">
@@ -71,7 +71,7 @@ const { form, submit } = useForm(props.equipment || {
                     :error="form.errors.supplier_id"
                     :options="suppliers"
                     textBy="social_name"
-                    placeholder="Producao propria"
+                    placeholder="Produção própria"
                 />
             </div>
         </div>
@@ -161,7 +161,9 @@ const { form, submit } = useForm(props.equipment || {
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">
+                {{ equipment ? 'Editar' : 'Cadastrar' }}
+            </button>
 
             <Link class="btn btn-link" :href="route('equipments.index')">
                 Voltar
