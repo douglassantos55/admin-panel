@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/equipments', 'index')->name('equipments.index');
         Route::get('/equipments/edit/{equipment}', 'edit')->name('equipments.edit');
         Route::put('/equipments/update/{equipment}', 'update')->name('equipments.update');
+        Route::delete('/equipments/destroy/{equipment}', 'destroy')->name('equipments.destroy');
     });
 
     Route::get('/', function () {

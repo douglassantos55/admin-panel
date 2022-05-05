@@ -71,7 +71,7 @@ defineProps({
                                     Editar
                                 </Link>
 
-                                <Link as="button" class="btn btn-sm btn-danger" href="" method="delete">
+                                <Link as="button" class="btn btn-sm btn-danger" :href="route('equipments.destroy', equipment.id)" method="delete">
                                     Excluir
                                 </Link>
                             </div>
