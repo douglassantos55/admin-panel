@@ -20,6 +20,7 @@ const { form, submit } = useForm(props.period || {
         <div class="row">
             <div class="col-xs-12 col-sm-8">
                 <Input
+                    required
                     label="Nome"
                     v-model="form.name"
                     :error="form.errors.name"
@@ -28,6 +29,7 @@ const { form, submit } = useForm(props.period || {
 
             <div class="col-xs-12 col-sm-4">
                 <Input
+                    required
                     type="number"
                     label="Qtd dias"
                     v-model="form.qty_days"
@@ -37,7 +39,7 @@ const { form, submit } = useForm(props.period || {
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" :disabled="form.processing">
                 {{ period ? 'Editar' : 'Cadastrar' }}
             </button>
 

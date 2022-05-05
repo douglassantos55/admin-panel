@@ -101,7 +101,7 @@ const { form, submit } = useForm(props.supplier || {
         <Input label="Observações" v-model="form.observations" rows="3" />
 
         <div class="d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" :disabled="form.processing">
                 {{ supplier ? 'Editar' : 'Cadastrar' }}
             </button>
 

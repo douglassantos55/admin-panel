@@ -153,6 +153,7 @@ const { form, submit } = useForm(props.equipment || {
             <div class="col-xs-12 col-sm-2" v-for="period in periods" :key="period.id">
                 <DecimalInput
                     required
+                    v-if="getIndex(period.id) != -1"
                     :label="`Valor ${period.name}`"
                     v-model="form.values[getIndex(period.id)].value"
                     :error="form.errors[`values.${getIndex(period.id)}.value`]"
@@ -161,7 +162,7 @@ const { form, submit } = useForm(props.equipment || {
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" :disabled="form.processing">
                 {{ equipment ? 'Editar' : 'Cadastrar' }}
             </button>
 
