@@ -67,7 +67,7 @@ defineProps({
                         <td>{{ equipment.purchase_value }}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-end">
-                                <Link class="btn btn-sm btn-secondary" href="">
+                                <Link class="btn btn-sm btn-secondary" :href="route('equipments.edit', equipment.id)">
                                     Editar
                                 </Link>
 

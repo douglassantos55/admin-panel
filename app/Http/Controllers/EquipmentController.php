@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EquipmentRequest;
 use App\Models\Equipment;
 use App\Models\Filters;
 use App\Models\Period;
@@ -36,32 +37,41 @@ class EquipmentController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function edit(Equipment $equipment)
     {
-        Gate::authorize('create-equipment');
+        Gate::authorize('update-equipment');
 
-        $validated = $request->validate([
-            'description' => ['required'],
-            'in_stock' => ['integer'],
-            'effective_qty' => ['integer'],
-            'weight' => ['numeric'],
-            'unit_value' => ['numeric'],
-            'purchase_value' => ['numeric'],
-            'replace_value' => ['numeric'],
-            'min_qty' => ['integer'],
-            'supplier_id' => ['nullable', 'exists:App\Models\Supplier,id'],
-            'values.*.period_id' => ['required', 'exists:App\Models\Period,id'],
-            'values.*.value' => ['required', 'numeric'],
+        return inertia('Equipment/Form')->with([
+            'equipment' => $equipment->load(['supplier', 'values']),
+            'periods' => Period::all(),
+            'suppliers' => Supplier::all(),
         ]);
+    }
 
+    public function store(EquipmentRequest $request)
+    {
         $equipment = Equipment::create($request->input());
 
-        if (isset($validated['values'])) {
+        if ($request->input('values')) {
             $equipment->values()->createMany($request->input('values'));
         }
 
         return redirect()
             ->route('equipments.index')
             ->with('flash', 'Equipamento cadastrado');
+    }
+
+    public function update(EquipmentRequest $request, Equipment $equipment)
+    {
+        $equipment->update($request->input());
+
+        if ($request->input('values')) {
+            $equipment->values()->delete();
+            $equipment->values()->createMany($request->input('values'));
+        }
+
+        return redirect()
+            ->route('equipments.index')
+            ->with('flash', 'Dados atualizados');
     }
 }

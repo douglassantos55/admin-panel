@@ -176,6 +176,7 @@ return [
         'min_qty' => 'Qtd minima',
         'values.*.period_id' => 'Periodo',
         'values.*.value' => 'Valor',
+        'supplier_id' => 'Fornecedor',
     ],
 
 ];

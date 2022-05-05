@@ -8,6 +8,7 @@
         <input
             :id="id"
             ref="inputRef"
+            v-bind="$attrs"
             :class="['form-control', { 'is-invalid': !!error }]"
         />
         <div class="invalid-feedback" v-if="error">{{ error }}</div>

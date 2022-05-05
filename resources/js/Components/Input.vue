@@ -11,8 +11,7 @@
             :rows="rows"
             v-bind="$attrs"
             :value="modelValue"
-            class="form-control"
-            :class="{ 'is-invalid': !!error }"
+            :class="['form-control', { 'is-invalid': !!error }]"
             @input="$emit('update:modelValue', $event.target.value)"
         />
         <div class="invalid-feedback" v-if="error">{{ error }}</div>

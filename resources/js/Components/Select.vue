@@ -5,10 +5,11 @@
             :id="id"
             v-bind="$attrs"
             :value="modelValue"
-            class="form-select"
-            :class="{ 'is-invalid': !!error }"
+            :class="['form-select', { 'is-invalid': !!error }]"
             @change="$emit('update:modelValue', $event.target.value)"
         >
+            <option value="" v-if="placeholder">{{ placeholder }}</option>
+
             <option
                 v-for="option in options"
                 :key="option[keyBy]"
@@ -30,7 +31,7 @@ export default {
     emits: ['update:modelValue'],
     props: {
         modelValue: {
-            type: String,
+            type: [String, Number],
             required: false,
         },
         options: {
@@ -50,6 +51,10 @@ export default {
             default: 'name',
         },
         label: {
+            type: String,
+            required: false,
+        },
+        placeholder: {
             type: String,
             required: false,
         },
