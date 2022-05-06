@@ -10,6 +10,7 @@ describe('CustomerForm', () => {
         const form = mount(Form, {
             global: {
                 directives: { maska },
+                mocks: { route: function() {} },
             },
             data: function() {
                 return {

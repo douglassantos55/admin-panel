@@ -41,7 +41,7 @@ const { form, submit } = useForm(props.equipment || {
     values: props.periods.map(period => ({ period_id: period.id, value: null })),
 })
 
-watch(props.equipment, equipment => {
+watch(() => props.equipment, equipment => {
     if (equipment) {
         for (const period of props.periods) {
             if (getIndex(period.id) == -1) {
@@ -49,7 +49,7 @@ watch(props.equipment, equipment => {
             }
         }
     }
-})
+}, { deep: true })
 
 watch(() => [form.purchase_value, form.profit_percentage], (data, prev) => {
     if (data[0] != prev[0] || data[1] != prev[1]) {
