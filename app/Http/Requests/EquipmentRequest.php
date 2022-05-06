@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Validator;
 
 class EquipmentRequest extends FormRequest
 {
@@ -37,8 +38,23 @@ class EquipmentRequest extends FormRequest
             'replace_value' => ['nullable', 'numeric'],
             'min_qty' => ['nullable', 'integer'],
             'supplier_id' => ['nullable', 'exists:App\Models\Supplier,id'],
-            'values.*.period_id' => ['required', 'exists:App\Models\Period,id'],
-            'values.*.value' => ['required', 'numeric'],
+            'values.*.period_id' => ['nullable', 'exists:App\Models\Period,id'],
+            'values.*.value' => ['nullable', 'numeric'],
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function () {
+            $input = $this->input();
+            if (isset($input['values'])) {
+                foreach ($input['values'] as $key => $value) {
+                    if (is_null($value['value'])) {
+                        unset($input['values'][$key]);
+                    }
+                }
+            }
+            $this->replace($input);
+        });
     }
 }

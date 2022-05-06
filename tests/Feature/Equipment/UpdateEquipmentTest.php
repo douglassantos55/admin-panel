@@ -152,4 +152,30 @@ class UpdateEquipmentTest extends TestCase
         $this->assertEquals(50, $equipment->values[1]->value);
         $this->assertEquals(100, $equipment->values[2]->value);
     }
+
+    public function test_removes_null_values()
+    {
+        Auth::login(User::factory()->create());
+
+        Period::factory()->count(3)->create();
+        $equipment = Equipment::factory()->create();
+
+        $equipment->values()->createMany([
+            ['period_id' => 1, 'value' => 100],
+            ['period_id' => 2, 'value' => 50],
+            ['period_id' => 3, 'value' => 10],
+        ]);
+
+        $this->put(route('equipments.update', $equipment->id), [
+            'description' => 'Escora',
+            'values' => [
+                ['period_id' => 1, 'value' => null],
+                ['period_id' => 2, 'value' => null],
+                ['period_id' => 3, 'value' => null],
+            ],
+        ]);
+
+        $equipment->refresh();
+        $this->assertCount(0, $equipment->values);
+    }
 }

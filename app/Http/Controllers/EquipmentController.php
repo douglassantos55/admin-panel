@@ -7,7 +7,6 @@ use App\Models\Equipment;
 use App\Models\Filters;
 use App\Models\Period;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class EquipmentController extends Controller
@@ -76,8 +75,9 @@ class EquipmentController extends Controller
     {
         $equipment->update($request->input());
 
+        $equipment->values()->delete();
+
         if ($request->input('values')) {
-            $equipment->values()->delete();
             $equipment->values()->createMany($request->input('values'));
         }
 
