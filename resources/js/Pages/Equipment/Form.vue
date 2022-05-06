@@ -1,4 +1,5 @@
 <script setup>
+import { watch } from 'vue'
 import { units } from '../../utils'
 import { Link } from '@inertiajs/inertia-vue3'
 import useForm from '../../Composables/useForm'
@@ -38,6 +39,23 @@ const { form, submit } = useForm(props.equipment || {
     unit_value: null,
     replace_value: null,
     values: props.periods.map(period => ({ period_id: period.id, value: null })),
+})
+
+watch(props.equipment, equipment => {
+    if (equipment) {
+        for (const period of props.periods) {
+            if (getIndex(period.id) == -1) {
+                form.values.push({ period_id : period.id, value: null })
+            }
+        }
+    }
+})
+
+watch(() => [form.purchase_value, form.profit_percentage], (data, prev) => {
+    if (data[0] != prev[0] || data[1] != prev[1]) {
+        form.unit_value = form.purchase_value * (1 + form.profit_percentage / 100)
+        form.replace_value = form.unit_value * (1 + form.profit_percentage / 100)
+    }
 })
 </script>
 
@@ -127,7 +145,7 @@ const { form, submit } = useForm(props.equipment || {
                 <DecimalInput
                     currency
                     label="Valor compra"
-                    v-model="form.purchase_value"
+                    v-model.number="form.purchase_value"
                     :error="form.errors.purchase_value"
                 />
             </div>
@@ -136,6 +154,7 @@ const { form, submit } = useForm(props.equipment || {
         <div class="row">
             <div class="col-xs-12 col-sm-2">
                 <DecimalInput
+                    currency
                     label="Valor unitário"
                     v-model="form.unit_value"
                     :error="form.errors.unit_value"
@@ -144,6 +163,7 @@ const { form, submit } = useForm(props.equipment || {
 
             <div class="col-xs-12 col-sm-2">
                 <DecimalInput
+                    currency
                     label="Valor reposição"
                     v-model="form.replace_value"
                     :error="form.errors.replace_value"
@@ -152,7 +172,7 @@ const { form, submit } = useForm(props.equipment || {
 
             <div class="col-xs-12 col-sm-2" v-for="period in periods" :key="period.id">
                 <DecimalInput
-                    required
+                    currency
                     v-if="getIndex(period.id) != -1"
                     :label="`Valor ${period.name}`"
                     v-model="form.values[getIndex(period.id)].value"
@@ -166,7 +186,7 @@ const { form, submit } = useForm(props.equipment || {
                 {{ equipment ? 'Editar' : 'Cadastrar' }}
             </button>
 
-            <Link class="btn btn-link" :href="route('equipments.index')">
+            <Link class="btn btn-secondary" :href="route('equipments.index')">
                 Voltar
             </Link>
         </div>
