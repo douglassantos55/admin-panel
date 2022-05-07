@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\SupplierController;
 
@@ -61,6 +62,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/equipments/edit/{equipment}', 'edit')->name('equipments.edit');
         Route::put('/equipments/update/{equipment}', 'update')->name('equipments.update');
         Route::delete('/equipments/destroy/{equipment}', 'destroy')->name('equipments.destroy');
+    });
+
+    Route::controller(PaymentTypeController::class)->group(function() {
+        Route::get('/payment-types/create', 'create')->name('payment_types.create');
+        Route::post('/payment-types/store', 'store')->name('payment_types.store');
+        Route::get('/payment-types', 'index')->name('payment_types.index');
     });
 
     Route::controller(RentController::class)->group(function () {

@@ -131,6 +131,7 @@ return [
         ],
         'accountant' => [
             'view-rents',
+            'view-payment-types', 'create-payment-type', 'update-payment-type', 'destroy-payment-type',
         ],
     ],
 ];
