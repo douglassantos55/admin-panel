@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment-types/create', 'create')->name('payment_types.create');
         Route::post('/payment-types/store', 'store')->name('payment_types.store');
         Route::get('/payment-types', 'index')->name('payment_types.index');
+        Route::get('/payment-types/edit/{paymentType}', 'edit')->name('payment_types.edit');
+        Route::put('/payment-types/update/{paymentType}', 'update')->name('payment_types.update');
     });
 
     Route::controller(RentController::class)->group(function () {

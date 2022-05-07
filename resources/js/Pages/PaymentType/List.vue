@@ -33,7 +33,10 @@ defineProps({
                     <td>{{ paymentType.name }}</td>
                     <td>
                         <div class="d-flex gap-2 justify-content-end">
-                            <Link href="" class="btn btn-sm btn-secondary">
+                            <Link
+                                :href="route('payment_types.edit', paymentType.id)"
+                                class="btn btn-sm btn-secondary"
+                            >
                                 Editar
                             </Link>
 

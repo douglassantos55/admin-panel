@@ -23,6 +23,13 @@ class PaymentTypeController extends Controller
         return inertia('PaymentType/Form');
     }
 
+    public function edit(PaymentType $paymentType)
+    {
+        Gate::authorize('update-payment-type');
+
+        return inertia('PaymentType/Form')->with('payment_type', $paymentType);
+    }
+
     public function store(Request $request)
     {
         Gate::authorize('create-payment-type');
@@ -34,5 +41,18 @@ class PaymentTypeController extends Controller
         return redirect()
             ->route('payment_types.index')
             ->with('flash', 'Tipo cadastrado');
+    }
+
+    public function update(Request $request, PaymentType $paymentType)
+    {
+        Gate::authorize('update-payment-type');
+
+        $request->validate(['name' => 'required']);
+
+        $paymentType->update($request->input());
+
+        return redirect()
+            ->route('payment_types.index')
+            ->with('flash', 'Dados atualizados');
     }
 }
