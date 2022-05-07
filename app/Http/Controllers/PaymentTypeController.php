@@ -30,6 +30,17 @@ class PaymentTypeController extends Controller
         return inertia('PaymentType/Form')->with('payment_type', $paymentType);
     }
 
+    public function destroy(PaymentType $paymentType)
+    {
+        Gate::authorize('destroy-payment-type');
+
+        $paymentType->delete();
+
+        return redirect()
+            ->route('payment_types.index')
+            ->with('flash', 'Tipo excluido');
+    }
+
     public function store(Request $request)
     {
         Gate::authorize('create-payment-type');

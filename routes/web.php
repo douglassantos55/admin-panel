@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment-types', 'index')->name('payment_types.index');
         Route::get('/payment-types/edit/{paymentType}', 'edit')->name('payment_types.edit');
         Route::put('/payment-types/update/{paymentType}', 'update')->name('payment_types.update');
+        Route::delete('/payment-types/destroy/{paymentType}', 'destroy')->name('payment_types.destroy');
     });
 
     Route::controller(RentController::class)->group(function () {
