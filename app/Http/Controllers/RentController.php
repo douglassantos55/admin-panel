@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Equipment;
+use App\Models\PaymentCondition;
 use App\Models\PaymentMethod;
+use App\Models\PaymentType;
 use App\Models\Period;
 use App\Models\Rent;
+use App\Models\Transporter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
@@ -21,6 +24,10 @@ class RentController extends Controller
             'periods' => Period::all(),
             'customers' => Customer::all(),
             'equipments' => Equipment::all(),
+            'payment_types' => PaymentType::all(),
+            'payment_methods' => PaymentMethod::all(),
+            'payment_conditions' => PaymentCondition::all(),
+            'transporters' => Transporter::all(),
         ]);
     }
 

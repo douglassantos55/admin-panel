@@ -1,6 +1,10 @@
 <template>
     <div class="mb-3" :class="$attrs.class">
-        <label :for="id" class="form-label" v-if="label">{{ label }}</label>
+        <label :for="id" class="form-label" v-if="label">
+            {{ label }}
+            <span class="text-danger" v-if="$attrs.required != undefined">*</span>
+        </label>
+
         <select
             :id="id"
             v-bind="$attrs"

@@ -45,6 +45,10 @@ class CreateRentTest extends TestCase
                 ->has('periods')
                 ->has('customers')
                 ->has('equipments')
+                ->has('payment_types')
+                ->has('payment_conditions')
+                ->has('payment_methods')
+                ->has('transporters')
         );
     }
 
@@ -201,7 +205,7 @@ class CreateRentTest extends TestCase
             ]);
         }
 
-        $response = $this->post(route('rents.store'), [
+        $this->post(route('rents.store'), [
             'customer_id' => '1',
             'period_id' => '1',
             'start_date' => '2025-12-20 23:30',

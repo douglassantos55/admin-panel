@@ -21,7 +21,6 @@
 <script>
 import { ref } from 'vue'
 import useId from '../Composables/useId'
-import { useCurrencyInput } from 'vue-currency-input'
 
 export default {
     expose: ['focus'],
@@ -44,29 +43,10 @@ export default {
             type: String,
             required: false,
         },
-        decimal: {
-            type: Boolean,
-            required: false,
-        },
-        currency: {
-            type: Boolean,
-            required: false,
-        },
     },
     setup(props) {
         let input = ref(null)
         const id = useId(props.label)
-
-        if (props.decimal || props.currency) {
-            const { inputRef } = useCurrencyInput({
-                locale: 'pt-BR',
-                currency: 'BRL',
-                useGrouping: true,
-                precision: 2,
-                currencyDisplay: 'symbol',
-            })
-            input = inputRef
-        }
 
         function focus() {
             input && input.value.focus()
