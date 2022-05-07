@@ -30,6 +30,16 @@ class Equipment extends Model
         'supplier_id',
     ];
 
+    public function getRentingValue($periodId): ?float
+    {
+        $value = $this->values->first(
+            fn ($value) =>
+            $value->period_id == $periodId
+        );
+
+        return $value?->value;
+    }
+
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);

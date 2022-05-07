@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\RentController;
 use App\Http\Controllers\SupplierController;
 
 /*
@@ -60,6 +61,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/equipments/edit/{equipment}', 'edit')->name('equipments.edit');
         Route::put('/equipments/update/{equipment}', 'update')->name('equipments.update');
         Route::delete('/equipments/destroy/{equipment}', 'destroy')->name('equipments.destroy');
+    });
+
+    Route::controller(RentController::class)->group(function () {
+        Route::get('/rents/create', 'create')->name('rents.create');
+        Route::post('/rents/store', 'store')->name('rents.store');
     });
 
     Route::get('/', function () {
