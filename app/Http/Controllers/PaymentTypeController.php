@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Gate;
 
 class PaymentTypeController extends Controller
 {
+    public function index()
+    {
+        Gate::authorize('view-payment-types');
+
+        return inertia('PaymentType/List')
+            ->with('payment_types', PaymentType::paginate());
+    }
+
     public function create()
     {
         Gate::authorize('create-payment-type');
