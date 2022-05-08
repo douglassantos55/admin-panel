@@ -18,6 +18,8 @@ class PaymentConditionFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
+            'title' => $this->faker->word(),
+            'increment' => $this->faker->randomFloat(),
         ];
     }
 }

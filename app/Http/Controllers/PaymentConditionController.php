@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Gate;
 
 class PaymentConditionController extends Controller
 {
+    public function index()
+    {
+        Gate::authorize('view-payment-conditions');
+
+        return inertia('PaymentCondition/List')
+            ->with('payment_conditions', PaymentCondition::with('paymentType')->paginate());
+    }
+
     public function create()
     {
         Gate::authorize('create-payment-condition');
