@@ -50,6 +50,10 @@ watch(() => usePage().props.value.flash, message => {
                         <li class="nav-item">
                             <Link :href="route('payment_types.index')" class="nav-link">Tipos pagamento</Link>
                         </li>
+
+                        <li class="nav-item">
+                            <Link :href="route('payment_methods.index')" class="nav-link">Formas pagamento</Link>
+                        </li>
                     </ul>
                 </div>
             </nav>

@@ -34,7 +34,7 @@ defineProps({
                     <td>
                         <div class="d-flex gap-2 justify-content-end">
                             <Link
-                                href=""
+                                :href="route('payment_methods.edit', method.id)"
                                 class="btn btn-sm btn-secondary"
                             >
                                 Editar

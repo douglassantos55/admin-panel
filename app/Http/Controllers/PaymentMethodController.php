@@ -23,6 +23,13 @@ class PaymentMethodController extends Controller
         return inertia('PaymentMethod/Form');
     }
 
+    public function edit(PaymentMethod $paymentMethod)
+    {
+        Gate::authorize('update-payment-method');
+
+        return inertia('PaymentMethod/Form')->with('payment_method', $paymentMethod);
+    }
+
     public function store(Request $request)
     {
         Gate::authorize('create-payment-method');
@@ -34,5 +41,18 @@ class PaymentMethodController extends Controller
         return redirect()
             ->route('payment_methods.index')
             ->with('flash', 'Forma de pagamento cadastrada');
+    }
+
+    public function update(Request $request, PaymentMethod $paymentMethod)
+    {
+        Gate::authorize('update-payment-method');
+
+        $request->validate(['name' => 'required']);
+
+        $paymentMethod->update($request->input());
+
+        return redirect()
+            ->route('payment_methods.index')
+            ->with('flash', 'Dados atualizados');
     }
 }

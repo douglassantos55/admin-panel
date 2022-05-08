@@ -3,13 +3,22 @@ import useForm from '../../Composables/useForm'
 import { Link } from '@inertiajs/inertia-vue3'
 import Input from '../../Components/Input.vue'
 
-const { form, submit } = useForm({
+const props = defineProps({
+    payment_method: {
+        type: Object,
+        required: false,
+    },
+})
+
+const { form, submit } = useForm(props.payment_method || {
     name: '',
 })
 </script>
 
 <template>
-    <h1 class="mb-4">Cadastrar forma de pagamento</h1>
+    <h1 class="mb-4">
+        {{ payment_method ? 'Editar' : 'Cadastrar' }} forma de pagamento
+    </h1>
 
     <form @submit.prevent="submit('payment_methods')">
         <div class="row">
@@ -25,7 +34,7 @@ const { form, submit } = useForm({
 
         <div class="d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-primary">
-                Cadastrar
+                {{ payment_method ? 'Editar' : 'Cadastrar' }}
             </button>
 
             <Link :href="route('payment_types.index')" class="btn btn-secondary">
