@@ -30,6 +30,17 @@ class PaymentMethodController extends Controller
         return inertia('PaymentMethod/Form')->with('payment_method', $paymentMethod);
     }
 
+    public function destroy(PaymentMethod $paymentMethod)
+    {
+        Gate::authorize('destroy-payment-method');
+
+        $paymentMethod->delete();
+
+        return redirect()
+            ->route('payment_methods.index')
+            ->with('flash', 'Forma de pagamento excluida');
+    }
+
     public function store(Request $request)
     {
         Gate::authorize('create-payment-method');
