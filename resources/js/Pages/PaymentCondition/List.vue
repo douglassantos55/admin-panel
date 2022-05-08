@@ -52,7 +52,7 @@ defineProps({
                                 as="button"
                                 method="delete"
                                 class="btn btn-sm btn-danger"
-                                href=""
+                                :href="route('payment_conditions.destroy', condition.id)"
                             >
                                 Excluir
                             </Link>

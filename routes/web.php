@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment-conditions', 'index')->name('payment_conditions.index');
         Route::get('/payment-conditions/edit/{paymentCondition}', 'edit')->name('payment_conditions.edit');
         Route::put('/payment-conditions/update/{paymentCondition}', 'update')->name('payment_conditions.update');
+        Route::delete('/payment-conditions/destroy/{paymentCondition}', 'destroy')->name('payment_conditions.destroy');
     });
 
     Route::controller(RentController::class)->group(function () {

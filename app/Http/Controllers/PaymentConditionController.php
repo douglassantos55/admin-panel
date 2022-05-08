@@ -36,6 +36,17 @@ class PaymentConditionController extends Controller
             ]);
     }
 
+    public function destroy(PaymentCondition $paymentCondition)
+    {
+        Gate::authorize('destroy-payment-condition');
+
+        $paymentCondition->delete();
+
+        return redirect()
+            ->route('payment_conditions.index')
+            ->with('flash', 'Condição cadastrada');
+    }
+
     public function store(PaymentConditionRequest $request)
     {
         Gate::authorize('create-payment-condition');
