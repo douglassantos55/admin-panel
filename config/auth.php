@@ -130,7 +130,6 @@ return [
             'view-rents', 'create-rent', 'update-rent', 'destroy-rent',
         ],
         'accountant' => [
-            'view-rents',
             'view-payment-types', 'create-payment-type', 'update-payment-type', 'destroy-payment-type',
             'view-payment-methods', 'create-payment-method', 'update-payment-method', 'destroy-payment-method',
         ],

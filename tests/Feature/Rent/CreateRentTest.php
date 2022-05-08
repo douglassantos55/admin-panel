@@ -158,8 +158,8 @@ class CreateRentTest extends TestCase
 
         Customer::factory()->create();
         Period::factory()->create();
-        PaymentType::factory()->create();
-        PaymentCondition::factory()->create();
+        $type = PaymentType::factory()->create();
+        PaymentCondition::factory()->for($type)->create();
         PaymentMethod::factory()->create();
         Transporter::factory()->create();
 
@@ -192,8 +192,8 @@ class CreateRentTest extends TestCase
 
         Customer::factory()->create();
         Period::factory()->create();
-        PaymentType::factory()->create();
-        PaymentCondition::factory()->create();
+        $type = PaymentType::factory()->create();
+        PaymentCondition::factory()->for($type)->create();
         PaymentMethod::factory()->create();
         Transporter::factory()->create();
 

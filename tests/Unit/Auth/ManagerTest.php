@@ -42,6 +42,16 @@ class ManagerTest extends TestCase
         $this->assertTrue(Gate::forUser($administrator)->check('update-rent'));
         $this->assertTrue(Gate::forUser($administrator)->check('destroy-rent'));
 
+        $this->assertTrue(Gate::forUser($administrator)->check('view-payment-types'));
+        $this->assertTrue(Gate::forUser($administrator)->check('create-payment-type'));
+        $this->assertTrue(Gate::forUser($administrator)->check('update-payment-type'));
+        $this->assertTrue(Gate::forUser($administrator)->check('destroy-payment-type'));
+
+        $this->assertTrue(Gate::forUser($administrator)->check('view-payment-methods'));
+        $this->assertTrue(Gate::forUser($administrator)->check('create-payment-method'));
+        $this->assertTrue(Gate::forUser($administrator)->check('update-payment-method'));
+        $this->assertTrue(Gate::forUser($administrator)->check('destroy-payment-method'));
+
         $this->assertTrue(Gate::forUser($administrator)->check('do-anything'));
     }
 
@@ -66,6 +76,16 @@ class ManagerTest extends TestCase
         $this->assertTrue(Gate::forUser($receptionist)->check('create-rent'));
         $this->assertTrue(Gate::forUser($receptionist)->check('update-rent'));
         $this->assertTrue(Gate::forUser($receptionist)->check('destroy-rent'));
+
+        $this->assertFalse(Gate::forUser($receptionist)->check('view-payment-types'));
+        $this->assertFalse(Gate::forUser($receptionist)->check('create-payment-type'));
+        $this->assertFalse(Gate::forUser($receptionist)->check('update-payment-type'));
+        $this->assertFalse(Gate::forUser($receptionist)->check('destroy-payment-type'));
+
+        $this->assertFalse(Gate::forUser($receptionist)->check('view-payment-methods'));
+        $this->assertFalse(Gate::forUser($receptionist)->check('create-payment-method'));
+        $this->assertFalse(Gate::forUser($receptionist)->check('update-payment-method'));
+        $this->assertFalse(Gate::forUser($receptionist)->check('destroy-payment-method'));
     }
 
     public function test_accountant_permissions()
@@ -75,7 +95,29 @@ class ManagerTest extends TestCase
 
         $accountant = User::factory()->create(['role' => 'accountant']);
 
-        $this->assertTrue(Gate::forUser($accountant)->check('view-rents'));
+        $this->assertFalse(Gate::forUser($accountant)->check('view-customers'));
         $this->assertFalse(Gate::forUser($accountant)->check('create-customer'));
+        $this->assertFalse(Gate::forUser($accountant)->check('update-customer'));
+        $this->assertFalse(Gate::forUser($accountant)->check('destroy-customer'));
+
+        $this->assertFalse(Gate::forUser($accountant)->check('view-suppliers'));
+        $this->assertFalse(Gate::forUser($accountant)->check('create-customer'));
+        $this->assertFalse(Gate::forUser($accountant)->check('update-supplier'));
+        $this->assertFalse(Gate::forUser($accountant)->check('destroy-customer'));
+
+        $this->assertFalse(Gate::forUser($accountant)->check('view-rents'));
+        $this->assertFalse(Gate::forUser($accountant)->check('create-rent'));
+        $this->assertFalse(Gate::forUser($accountant)->check('update-rent'));
+        $this->assertFalse(Gate::forUser($accountant)->check('destroy-rent'));
+
+        $this->assertTrue(Gate::forUser($accountant)->check('view-payment-types'));
+        $this->assertTrue(Gate::forUser($accountant)->check('create-payment-type'));
+        $this->assertTrue(Gate::forUser($accountant)->check('update-payment-type'));
+        $this->assertTrue(Gate::forUser($accountant)->check('destroy-payment-type'));
+
+        $this->assertTrue(Gate::forUser($accountant)->check('view-payment-methods'));
+        $this->assertTrue(Gate::forUser($accountant)->check('create-payment-method'));
+        $this->assertTrue(Gate::forUser($accountant)->check('update-payment-method'));
+        $this->assertTrue(Gate::forUser($accountant)->check('destroy-payment-method'));
     }
 }
