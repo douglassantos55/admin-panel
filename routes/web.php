@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\PaymentConditionController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\RentController;
@@ -81,6 +82,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment-methods/edit/{paymentMethod}', 'edit')->name('payment_methods.edit');
         Route::put('/payment-methods/update/{paymentMethod}', 'update')->name('payment_methods.update');
         Route::delete('/payment-methods/destroy/{paymentMethod}', 'destroy')->name('payment_methods.destroy');
+    });
+
+    Route::controller(PaymentConditionController::class)->group(function () {
+        Route::get('/payment-conditions/create', 'create')->name('payment_conditions.create');
+        Route::post('/payment-conditions/store', 'store')->name('payment_conditions.store');
+        Route::get('/payment-conditions', 'index')->name('payment_conditions.index');
     });
 
     Route::controller(RentController::class)->group(function () {

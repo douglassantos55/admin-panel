@@ -58,7 +58,7 @@ return [
     'gte' => [
         'array' => 'The :attribute must have :value items or more.',
         'file' => 'The :attribute must be greater than or equal to :value kilobytes.',
-        'numeric' => 'The :attribute must be greater than or equal to :value.',
+        'numeric' => 'O campo :attribute deve ser maior ou igual a :value.',
         'string' => 'The :attribute must be greater than or equal to :value characters.',
     ],
     'image' => 'The :attribute must be an image.',
@@ -164,6 +164,8 @@ return [
         'social_name' => 'Nome Fantasia',
         'birthdate' => 'Data de nascimento',
         'cpf' => 'CPF',
+        'title' => 'Título',
+        'increment' => 'Taxa',
         'cnpj' => 'CNPJ',
         'cpf_cnpj' => 'CPF/CNPJ',
         'phone' => 'Telefone',
@@ -195,6 +197,7 @@ return [
         'check_info' => 'Dados cheque(s)',
         'items.*.equipment_id' => 'Equipamento',
         'items.*.qty' => 'Qtd',
+        'installments.*' => 'Parcela',
     ],
 
     'values' => [
