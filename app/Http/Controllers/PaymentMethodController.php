@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Gate;
 
 class PaymentMethodController extends Controller
 {
+    public function index()
+    {
+        Gate::authorize('view-payment-methods');
+
+        return inertia('PaymentMethod/List')
+            ->with('payment_methods', PaymentMethod::paginate());
+    }
+
     public function create()
     {
         Gate::authorize('create-payment-method');
