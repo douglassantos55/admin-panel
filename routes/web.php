@@ -88,6 +88,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment-conditions/create', 'create')->name('payment_conditions.create');
         Route::post('/payment-conditions/store', 'store')->name('payment_conditions.store');
         Route::get('/payment-conditions', 'index')->name('payment_conditions.index');
+        Route::get('/payment-conditions/edit/{paymentCondition}', 'edit')->name('payment_conditions.edit');
+        Route::put('/payment-conditions/update/{paymentCondition}', 'update')->name('payment_conditions.update');
     });
 
     Route::controller(RentController::class)->group(function () {
