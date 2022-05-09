@@ -98,6 +98,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/transporters/create', 'create')->name('transporters.create');
         Route::post('/transporters/store', 'store')->name('transporters.store');
         Route::get('/transporters', 'index')->name('transporters.index');
+        Route::get('/transporters/edit/{transporter}', 'edit')->name('transporters.edit');
+        Route::put('/transporters/update/{transporter}', 'update')->name('transporters.update');
     });
 
     Route::controller(RentController::class)->group(function () {

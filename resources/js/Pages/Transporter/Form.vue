@@ -3,14 +3,21 @@ import useForm from '../../Composables/useForm'
 import { Link } from '@inertiajs/inertia-vue3'
 import Input from '../../Components/Input.vue'
 
-const { form, submit } = useForm({
+const props = defineProps({
+    transporter: {
+        type: Object,
+        required: false,
+    },
+})
+
+const { form, submit } = useForm(props.transporter || {
     name: '',
 })
 </script>
 
 <template>
     <h1 class="mb-4">
-        Cadastrar Transportador
+        {{ transporter ? 'Editar' : 'Cadastrar' }} Transportador
     </h1>
 
     <form @submit.prevent="submit('transporters')">
@@ -27,7 +34,7 @@ const { form, submit } = useForm({
 
         <div class="d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-primary">
-                Cadastrar
+                {{ transporter ? 'Editar' : 'Cadastrar' }}
             </button>
 
             <Link :href="route('transporters.index')" class="btn btn-secondary">

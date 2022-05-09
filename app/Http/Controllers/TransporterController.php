@@ -23,6 +23,13 @@ class TransporterController extends Controller
         return inertia('Transporter/Form');
     }
 
+    public function edit(Transporter $transporter)
+    {
+        Gate::authorize('update-transporter');
+
+        return inertia('Transporter/Form')->with('transporter', $transporter);
+    }
+
     public function store(Request $request)
     {
         Gate::authorize('create-transporter');
@@ -34,5 +41,18 @@ class TransporterController extends Controller
         return redirect()
             ->route('transporters.index')
             ->with('flash', 'Transportador cadastrado');
+    }
+
+    public function update(Request $request, Transporter $transporter)
+    {
+        Gate::authorize('update-transporter');
+
+        $request->validate(['name' => 'required']);
+
+        $transporter->update($request->input());
+
+        return redirect()
+            ->route('transporters.index')
+            ->with('flash', 'Dados atualizados');
     }
 }
