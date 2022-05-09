@@ -73,7 +73,7 @@ const { form, submit } = useForm(props.payment_condition || {
         <div class="row align-items-center">
             <div class="col-xs-12 col-sm-3" v-for="(installment, i) in form.installments" :key="i">
                 <Input
-                    :label="`Qtd dias ${i+1} parcela`"
+                    :label="`Qtd dias ${i+1}ª parcela`"
                     v-model="form.installments[i]"
                     :error="form.errors[`installments.${i}`]"
                 />
@@ -81,11 +81,20 @@ const { form, submit } = useForm(props.payment_condition || {
         </div>
 
         <div class="d-flex gap-2 mb-5">
-            <button type="button" class="btn btn-secondary" @click="form.installments.push('')">
+            <button
+                type="button"
+                class="btn btn-secondary"
+                @click="form.installments.push('')"
+            >
                 Adicionar parcela
             </button>
 
-            <button type="button" class="btn btn-danger" @click="form.installments.pop()">
+            <button
+                type="button"
+                class="btn btn-danger"
+                @click="form.installments.pop()"
+                v-if="form.installments.length > 0"
+            >
                 Remover parcela
             </button>
         </div>

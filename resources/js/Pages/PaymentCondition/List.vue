@@ -38,7 +38,7 @@ defineProps({
                     <td>{{ condition.title }}</td>
                     <td>{{ condition.payment_type.name }}</td>
                     <td>{{ condition.increment }}</td>
-                    <td>{{ condition.installments }}</td>
+                    <td>{{ condition.installments.join(', ') }}</td>
                     <td>
                         <div class="d-flex gap-2 justify-content-end">
                             <Link
