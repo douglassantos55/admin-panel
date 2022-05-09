@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Gate;
 
 class TransporterController extends Controller
 {
+    public function index()
+    {
+        Gate::authorize('view-transporters');
+
+        return inertia('Transporter/List')
+            ->with('transporters', Transporter::paginate());
+    }
+
     public function create()
     {
         Gate::authorize('create-transporter');

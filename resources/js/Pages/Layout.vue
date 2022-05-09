@@ -58,6 +58,10 @@ watch(() => usePage().props.value.flash, message => {
                         <li class="nav-item">
                             <Link :href="route('payment_conditions.index')" class="nav-link">Condições pagamento</Link>
                         </li>
+
+                        <li class="nav-item">
+                            <Link :href="route('transporters.index')" class="nav-link">Transportadores</Link>
+                        </li>
                     </ul>
                 </div>
             </nav>
