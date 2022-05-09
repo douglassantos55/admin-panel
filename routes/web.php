@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransporterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +92,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/payment-conditions/edit/{paymentCondition}', 'edit')->name('payment_conditions.edit');
         Route::put('/payment-conditions/update/{paymentCondition}', 'update')->name('payment_conditions.update');
         Route::delete('/payment-conditions/destroy/{paymentCondition}', 'destroy')->name('payment_conditions.destroy');
+    });
+
+    Route::controller(TransporterController::class)->group(function () {
+        Route::get('/transporters/create', 'create')->name('transporters.create');
+        Route::post('/transporters/store', 'store')->name('transporters.store');
+        Route::get('/transporters', 'index')->name('transporters.index');
     });
 
     Route::controller(RentController::class)->group(function () {
