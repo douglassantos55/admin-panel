@@ -44,7 +44,7 @@ defineProps({
                                 as="button"
                                 method="delete"
                                 class="btn btn-sm btn-danger"
-                                href=""
+                                :href="route('transporters.destroy', transporter.id)"
                             >
                                 Excluir
                             </Link>

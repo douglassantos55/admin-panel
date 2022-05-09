@@ -100,6 +100,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/transporters', 'index')->name('transporters.index');
         Route::get('/transporters/edit/{transporter}', 'edit')->name('transporters.edit');
         Route::put('/transporters/update/{transporter}', 'update')->name('transporters.update');
+        Route::delete('/transporters/destroy/{transporter}', 'destroy')->name('transporters.destroy');
     });
 
     Route::controller(RentController::class)->group(function () {

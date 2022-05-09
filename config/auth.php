@@ -128,6 +128,8 @@ return [
             'view-periods', 'create-period', 'update-period', 'destroy-period',
             // rents
             'view-rents', 'create-rent', 'update-rent', 'destroy-rent',
+            // transporters
+            'view-transporters', 'create-transporter', 'update-transporter', 'destroy-transporter',
         ],
         'accountant' => [
             'view-payment-types', 'create-payment-type', 'update-payment-type', 'destroy-payment-type',

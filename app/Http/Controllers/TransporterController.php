@@ -30,6 +30,17 @@ class TransporterController extends Controller
         return inertia('Transporter/Form')->with('transporter', $transporter);
     }
 
+    public function destroy(Transporter $transporter)
+    {
+        Gate::authorize('destroy-transporter');
+
+        $transporter->delete();
+
+        return redirect()
+            ->route('transporters.index')
+            ->with('flash', 'Transportador excluido');
+    }
+
     public function store(Request $request)
     {
         Gate::authorize('create-transporter');
