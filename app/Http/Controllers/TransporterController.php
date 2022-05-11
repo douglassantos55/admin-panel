@@ -45,7 +45,10 @@ class TransporterController extends Controller
     {
         Gate::authorize('create-transporter');
 
-        $request->validate(['name' => 'required']);
+        $request->validate([
+            'name' => ['required'],
+            'delivery' => ['required', 'boolean'],
+        ]);
 
         Transporter::create($request->input());
 
@@ -58,7 +61,10 @@ class TransporterController extends Controller
     {
         Gate::authorize('update-transporter');
 
-        $request->validate(['name' => 'required']);
+        $request->validate([
+            'name' => 'required',
+            'delivery' => ['required', 'boolean'],
+        ]);
 
         $transporter->update($request->input());
 

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('transporters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('delivery')->default(false);
             $table->timestamp('createdAt')->nullable();
             $table->timestamp('updatedAt')->nullable();
             $table->softDeletes('deletedAt');

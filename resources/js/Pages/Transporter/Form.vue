@@ -12,6 +12,7 @@ const props = defineProps({
 
 const { form, submit } = useForm(props.transporter || {
     name: '',
+    delivery: false,
 })
 </script>
 
@@ -29,6 +30,24 @@ const { form, submit } = useForm(props.transporter || {
                     v-model="form.name"
                     :error="form.errors.name"
                 />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="mb-4 form-check form-switch">
+                    <input
+                        id="delivery"
+                        role="switch"
+                        type="checkbox"
+                        class="form-check-input"
+                        v-model="form.delivery"
+                    />
+
+                    <label class="form-check-label" for="delivery">
+                        Necessita endereço de entrega
+                    </label>
+                </div>
             </div>
         </div>
 

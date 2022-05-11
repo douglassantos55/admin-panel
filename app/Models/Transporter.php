@@ -14,7 +14,12 @@ class Transporter extends Model
     const UPDATED_AT = 'updatedAt';
     const DELETED_AT = 'deletedAt';
 
+    protected $casts = [
+        'delivery' => 'boolean',
+    ];
+
     protected $fillable = [
         'name',
+        'delivery',
     ];
 }

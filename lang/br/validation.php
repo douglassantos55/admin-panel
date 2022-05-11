@@ -30,7 +30,7 @@ return [
         'numeric' => 'The :attribute must be between :min and :max.',
         'string' => 'The :attribute must be between :min and :max characters.',
     ],
-    'boolean' => 'The :attribute field must be true or false.',
+    'boolean' => 'O campo :attribute deve ser verdadeiro ou falso.',
     'confirmed' => 'The :attribute confirmation does not match.',
     'current_password' => 'The password is incorrect.',
     'date' => 'O campo :attribute não é uma data válida.',
@@ -198,6 +198,7 @@ return [
         'items.*.equipment_id' => 'Equipamento',
         'items.*.qty' => 'Qtd',
         'installments.*' => 'Parcela',
+        'delivery' => 'Entrega',
     ],
 
     'values' => [

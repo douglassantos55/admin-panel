@@ -24,6 +24,7 @@ defineProps({
             <thead>
                 <tr>
                     <th>Nome</th>
+                    <th>Entrega</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@ defineProps({
             <tbody>
                 <tr v-for="transporter in transporters.data" :key="transporter.id">
                     <td>{{ transporter.name }}</td>
+                    <td>{{ transporter.delivery ? 'Sim' : 'Não' }}</td>
                     <td>
                         <div class="d-flex gap-2 justify-content-end">
                             <Link

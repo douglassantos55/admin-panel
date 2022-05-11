@@ -53,10 +53,12 @@ class UpdateTransporterTest extends TestCase
 
         $response = $this->put(route('transporters.update', $transporter->id), [
             'name' => '',
+            'delivery' => 'false',
         ]);
 
         $response->assertInvalid([
             'name' => 'O campo Nome é obrigatório.',
+            'delivery' => 'O campo Entrega deve ser verdadeiro ou falso.',
         ]);
     }
 
@@ -67,6 +69,7 @@ class UpdateTransporterTest extends TestCase
 
         $response = $this->put(route('transporters.update', $transporter->id), [
             'name' => 'Locadora',
+            'delivery' => '1',
         ]);
 
         $transporter->refresh();

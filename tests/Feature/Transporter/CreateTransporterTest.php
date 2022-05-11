@@ -44,10 +44,22 @@ class CreateTransporterTest extends TestCase
 
         $response = $this->post(route('transporters.store'), [
             'name' => '',
+            'delivery' => '',
         ]);
 
         $response->assertInvalid([
             'name' => 'O campo Nome é obrigatório.',
+            'delivery' => 'O campo Entrega é obrigatório.',
+        ]);
+
+        $response = $this->post(route('transporters.store'), [
+            'name' => '',
+            'delivery' => 'true',
+        ]);
+
+        $response->assertInvalid([
+            'name' => 'O campo Nome é obrigatório.',
+            'delivery' => 'O campo Entrega deve ser verdadeiro ou falso.',
         ]);
     }
 
@@ -57,6 +69,7 @@ class CreateTransporterTest extends TestCase
 
         $this->post(route('transporters.store'), [
             'name' => 'Locadora',
+            'delivery' => '0',
         ]);
 
         $this->assertModelExists(Transporter::where('name', 'Locadora')->first());
@@ -68,6 +81,7 @@ class CreateTransporterTest extends TestCase
 
         $response = $this->post(route('transporters.store'), [
             'name' => 'Locadora',
+            'delivery' => '1',
         ]);
 
         $response->assertRedirect(route('transporters.index'));
@@ -79,6 +93,7 @@ class CreateTransporterTest extends TestCase
 
         $response = $this->post(route('transporters.store'), [
             'name' => 'Locadora',
+            'delivery' => true,
         ]);
 
         $response->assertSessionHas('flash', 'Transportador cadastrado');
