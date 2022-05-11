@@ -609,4 +609,61 @@ describe('RentForm', () => {
         await form.get('[data-test="forma_pagamento"]').setValue(3)
         expect(form.find('[data-test="dados_cheque"]').exists()).toBe(true)
     })
+
+    it('resets values when things go hidden', async () => {
+        const form = mount(Form, {
+            global: {
+                mocks: {
+                    dispatch: () => {}
+                },
+            },
+            props: {
+                customers: [],
+                periods: [],
+                payment_types: [
+                    { id: 1, name: 'A vista' },
+                    { id: 2, name: 'Faturado' },
+                ],
+                payment_conditions: [
+                    { id: 1, payment_type_id: 1 },
+                    { id: 2, payment_type_id: 2 },
+                ],
+                payment_methods: [
+                    { id: 1, name: 'Dinheiro' },
+                    { id: 2, name: 'Cheque a vista' },
+                    { id: 3, name: 'Cheque pre-datado' },
+                ],
+                transporters: [
+                    { id: 1, delivery: false },
+                    { id: 2, delivery: true },
+                ],
+                equipments: [],
+            },
+        })
+
+        await form.get('[data-test="forma_pagamento"]').setValue(2)
+        await form.get('[data-test="dados_cheque"]').setValue('banco: xyz')
+        await form.get('[data-test="forma_pagamento"]').setValue(1)
+        expect(form.vm.form.check_info).toBe('')
+
+        await form.get('[data-test="valor_pago"]').setValue('10')
+        await form.get('[data-test="cedula"]').setValue('50')
+        await form.get('[data-test="valor_pago"]').setValue('')
+        expect(form.vm.form.bill).toBe('')
+
+        await form.get('[data-test="desconto"]').setValue('10')
+        await form.get('[data-test="razao_desconto"]').setValue('teste')
+        await form.get('[data-test="desconto"]').setValue('')
+        expect(form.vm.form.discount_reason).toBe('')
+
+        await form.get('[data-test="transportador"]').setValue('2')
+        await form.get('[data-test="endereco_entrega"]').setValue('rua abc')
+        await form.get('[data-test="transportador"]').setValue('1')
+        expect(form.vm.form.delivery_address).toBe('')
+
+        await form.get('[data-test="tipo_pagamento"]').setValue('1')
+        await form.get('[data-test="condicao_pagamento"]').setValue('1')
+        await form.get('[data-test="tipo_pagamento"]').setValue('2')
+        expect(form.vm.form.payment_condition_id).toBe('')
+    })
 })

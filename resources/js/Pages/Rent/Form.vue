@@ -181,6 +181,33 @@ const paid_with_check = computed(() => {
     return payment_method && /cheque/i.test(payment_method.name)
 })
 
+watch(form, function() {
+    const triggers = {
+        paid_value: 'bill',
+        discount: 'discount_reason',
+    }
+
+    for (const field in triggers) {
+        if (!form[field]) {
+            form[triggers[field]] = ''
+        }
+    }
+})
+
+watch(() => form.payment_type_id, () => {
+    form.payment_condition_id = ''
+})
+
+watch([paid_with_check, requires_delivery], () => {
+    if (!requires_delivery.value) {
+        form.delivery_address = ''
+    }
+
+    if (!paid_with_check.value) {
+        form.check_info = ''
+    }
+})
+
 watch(() => form.start_hour, startHour => {
     form.end_hour = startHour
 })
