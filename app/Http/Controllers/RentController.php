@@ -45,7 +45,11 @@ class RentController extends Controller
             'qty_days' => ['required', 'integer'],
             'discount' => ['nullable', 'numeric'],
             'paid_value' => ['nullable', 'numeric'],
-            'bill' => ['nullable', 'required_unless:paid_value,null', 'numeric'],
+            'bill' => [
+                'nullable',
+                Rule::requiredIf(fn () => $request->input('paid_value') > 0),
+                'numeric'
+            ],
             'check_info' => [
                 'nullable',
                 Rule::requiredIf(function () use ($request) {

@@ -96,12 +96,12 @@ class CreateRentTest extends TestCase
 
         $response->assertInvalid([
             'paid_value' => 'O campo Valor pago deve ser um número.',
-            'bill' => 'O campo Cédula é obrigatório quando Valor pago não é vazio.',
+            'bill' => 'O campo Cédula é obrigatório.',
         ]);
 
         $response = $this->post(route('rents.store'), [
             'bill' => '',
-            'paid_value' => ''
+            'paid_value' => '0.00'
         ]);
 
         $response->assertValid(['paid_value', 'bill']);
