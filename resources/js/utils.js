@@ -11,3 +11,9 @@ function asOptions(object) {
         name: object[key],
     }))
 }
+
+const formatter = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2 })
+
+export function format(num) {
+    return formatter.format(num)
+}

@@ -23,7 +23,7 @@ class RentController extends Controller
         return inertia('Rent/Form')->with([
             'periods' => Period::all(),
             'customers' => Customer::all(),
-            'equipments' => Equipment::all(),
+            'equipments' => Equipment::with('values')->get(),
             'payment_types' => PaymentType::all(),
             'payment_methods' => PaymentMethod::all(),
             'payment_conditions' => PaymentCondition::all(),
@@ -58,7 +58,7 @@ class RentController extends Controller
             ],
             'items' => ['required', 'min:1'],
             'items.*.equipment_id' => ['required', 'exists:App\Models\Equipment,id'],
-            'items.*.qty' => ['required', 'numeric'],
+            'items.*.qty' => ['required', 'integer', 'numeric', 'gte:1'],
         ]);
 
         $rent = Rent::create($request->except('items'));
