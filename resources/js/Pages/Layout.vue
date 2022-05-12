@@ -62,6 +62,10 @@ watch(() => usePage().props.value.flash, message => {
                         <li class="nav-item">
                             <Link :href="route('transporters.index')" class="nav-link">Transportadores</Link>
                         </li>
+
+                        <li class="nav-item">
+                            <Link :href="route('rents.index')" class="nav-link">Locações</Link>
+                        </li>
                     </ul>
                 </div>
             </nav>

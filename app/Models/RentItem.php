@@ -24,9 +24,18 @@ class RentItem extends Model
         });
     }
 
+    public function subtotalWeight(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->qty * $this->equipment?->weight;
+        });
+    }
+
     public function subtotalRentValue(): Attribute
     {
-        return Attribute::get(fn () => $this->qty * $this->rent_value);
+        return Attribute::get(function () {
+            return $this->qty * $this->rent_value;
+        });
     }
 
     public function subtotalUnitValue(): Attribute
@@ -39,22 +48,15 @@ class RentItem extends Model
         return $this->belongsTo(Equipment::class);
     }
 
-    public function rent(): BelongsTo
-    {
-        return $this->belongsTo(Rent::class);
-    }
-
     public function rentValue(): Attribute
     {
-        return Attribute::make(
-            get: function ($value) {
-                if (!$value) {
-                    $periodId = $this->rent?->period_id;
-                    return $this->equipment?->getRentingValue($periodId);
-                }
-                return $value;
+        return Attribute::get(function ($value) {
+            if (!$value) {
+                $periodId = $this->rent?->period_id;
+                return $this->equipment?->getRentingValue($periodId);
             }
-        );
+            return $value;
+        });
     }
 
     public function unitValue(): Attribute
@@ -67,5 +69,10 @@ class RentItem extends Model
                 return $value;
             }
         );
+    }
+
+    public function rent(): BelongsTo
+    {
+        return $this->belongsTo(Rent::class);
     }
 }

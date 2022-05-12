@@ -17,7 +17,15 @@ class RentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'start_date' => $this->faker->date(),
+            'end_date' => $this->faker->date(),
+            'qty_days' => $this->faker->randomNumber(),
+            'customer_id' => $this->faker->randomNumber(),
+            'period_id' => $this->faker->randomNumber(),
+            'payment_type_id' => $this->faker->randomNumber(),
+            'payment_method_id' => $this->faker->randomNumber(),
+            'payment_condition_id' => $this->faker->randomNumber(),
+            'transporter_id' => $this->faker->randomNumber(),
         ];
     }
 }

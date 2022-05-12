@@ -12,8 +12,19 @@ function asOptions(object) {
     }))
 }
 
-const formatter = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2 })
-
 export function format(num) {
-    return formatter.format(num)
+    return new Intl.NumberFormat('pt-BR', {
+        minimumFractionDigits: 2
+    }).format(num)
+}
+
+export function formatCurrency(num) {
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(num)
+}
+
+export function formatDate(date) {
+    return new Intl.DateTimeFormat('pt-BR').format(new Date(date))
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Equipment;
+use App\Models\Filters;
 use App\Models\PaymentCondition;
 use App\Models\PaymentMethod;
 use App\Models\PaymentType;
@@ -16,6 +17,21 @@ use Illuminate\Validation\Rule;
 
 class RentController extends Controller
 {
+    public function index(Filters $filters)
+    {
+        Gate::authorize('view-rents');
+
+        $rents = $filters
+            ->equals('number', 'id')
+            ->equals('customer', 'customer_id')
+            ->apply(Rent::with(['period', 'customer']));
+
+        return inertia('Rent/List')->with([
+            'rents' => $rents,
+            'customers' => Customer::all(),
+        ]);
+    }
+
     public function create()
     {
         Gate::authorize('create-rent');

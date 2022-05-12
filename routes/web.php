@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(RentController::class)->group(function () {
         Route::get('/rents/create', 'create')->name('rents.create');
         Route::post('/rents/store', 'store')->name('rents.store');
+        Route::get('/rents', 'index')->name('rents.index');
     });
 
     Route::get('/', function () {
