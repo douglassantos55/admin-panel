@@ -239,4 +239,45 @@ class CreateRentTest extends TestCase
         $this->assertEquals(1.6, $rent->items[1]->rent_value);
         $this->assertEquals(2.6, $rent->items[2]->rent_value);
     }
+
+    public function test_redirect()
+    {
+        Auth::login(User::factory()->create());
+
+        Customer::factory()->create();
+        Period::factory()->create();
+        $type = PaymentType::factory()->create();
+        PaymentCondition::factory()->for($type)->create();
+        PaymentMethod::factory()->create();
+        Transporter::factory()->create();
+
+        $equipments = Equipment::factory()->count(3)->create();
+        foreach ($equipments as $key => $equipment) {
+            $equipment->values()->create([
+                'period_id' => '1',
+                'value' => $key + 0.6,
+            ]);
+        }
+
+        $response = $this->post(route('rents.store'), [
+            'customer_id' => '1',
+            'period_id' => '1',
+            'start_date' => '2025-12-20 23:30',
+            'end_date' => '2026-02-10 23:30',
+            'payment_type_id' => '1',
+            'payment_condition_id' => '1',
+            'qty_days' => '10',
+            'transporter_id' => '1',
+            'discount' => '5',
+            'payment_method_id' => '1',
+            'items' => [
+                ['equipment_id' => '1', 'qty' => '2'],
+                ['equipment_id' => 2, 'qty' => '3'],
+                ['equipment_id' => '3', 'qty' => '5'],
+            ],
+        ]);
+
+        $response->assertRedirect(route('rents.view', 1));
+        $response->assertSessionHas('flash', 'Locação cadastrada');
+    }
 }

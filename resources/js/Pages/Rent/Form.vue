@@ -235,7 +235,7 @@ watch(() => [form.start_date, form.period_id], ([ dateString, periodId ]) => {
 </script>
 
 <template>
-    <h1 class="mb-4">Cadastrar locação</h1>
+    <h1 class="mb-4">{{ rent ? 'Editar' : 'Cadastrar' }} locação</h1>
 
     <form @submit.prevent="submit('rents')">
         <div class="row">
@@ -596,9 +596,11 @@ watch(() => [form.start_date, form.period_id], ([ dateString, periodId ]) => {
         />
 
         <div class="d-flex align-items-center justify-content-between">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">
+                {{ rent ? 'Editar' : 'Cadastrar' }}
+            </button>
 
-            <Link href="#" class="btn btn-secondary">Voltar</Link>
+            <Link :href="route('rents.index')" class="btn btn-secondary">Voltar</Link>
         </div>
     </form>
 </template>

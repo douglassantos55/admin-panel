@@ -61,7 +61,7 @@ defineProps({
 
                 <template v-else>
                     <tr v-for="rent in rents.data" :key="rent.id">
-                        <td>{{ rent.id }}</td>
+                        <td>{{ rent.number }}</td>
                         <td>{{ rent.customer.name }}</td>
                         <td>
                             Início: {{ formatDate(rent.start_date) }}<br />
@@ -73,7 +73,7 @@ defineProps({
                         <td class="text-end">{{ formatCurrency(rent.total) }}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-end">
-                                <Link class="btn btn-sm btn-secondary" href="">
+                                <Link class="btn btn-sm btn-secondary" :href="route('rents.edit', rent.id)">
                                     Editar
                                 </Link>
 

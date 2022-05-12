@@ -17,7 +17,7 @@ class RentItemFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'qty' => $this->faker->randomNumber(),
         ];
     }
 }

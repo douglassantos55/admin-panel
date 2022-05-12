@@ -5,6 +5,9 @@ import Form from '../Pages/Rent/Form.vue'
 describe('RentForm', () => {
     it('filters payment conditions based on selected payment type', async () => {
         const form = mount(Form, {
+            global: {
+                mocks: { route: function() {} },
+            },
             props: {
                 customers: [],
                 periods: [],
@@ -35,6 +38,9 @@ describe('RentForm', () => {
 
     it('adds selected period duration to start date', async () => {
         const form = mount(Form, {
+            global: {
+                mocks: { route: function() {} },
+            },
             props: {
                 customers: [],
                 periods: [
@@ -57,6 +63,9 @@ describe('RentForm', () => {
 
     it('duplicates start hour on end hour', async () => {
         const form = mount(Form, {
+            global: {
+                mocks: { route: function() {} },
+            },
             props: {
                 customers: [],
                 periods: [],
@@ -74,6 +83,9 @@ describe('RentForm', () => {
 
     it('fills qty days with selected period\`s qty days', async () => {
         const form = mount(Form, {
+            global: {
+                mocks: { route: function() {} },
+            },
             props: {
                 customers: [],
                 periods: [
@@ -94,6 +106,9 @@ describe('RentForm', () => {
 
     it('disables Add item button if no condition is selected', async () => {
         const form = mount(Form, {
+            global: {
+                mocks: { route: function() {} },
+            },
             props: {
                 customers: [],
                 periods: [],
@@ -119,6 +134,9 @@ describe('RentForm', () => {
 
     it('adds items', async () => {
         const form = mount(Form, {
+            global: {
+                mocks: { route: function() {} },
+            },
             props: {
                 customers: [],
                 periods: [],
@@ -145,7 +163,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -176,7 +195,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -228,7 +248,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -277,7 +298,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -329,7 +351,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -357,7 +380,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -385,7 +409,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -412,7 +437,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -439,7 +465,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -467,7 +494,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -504,7 +532,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -542,7 +571,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -580,7 +610,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {
@@ -614,7 +645,8 @@ describe('RentForm', () => {
         const form = mount(Form, {
             global: {
                 mocks: {
-                    dispatch: () => {}
+                    dispatch: () => {},
+                    route: function() {},
                 },
             },
             props: {

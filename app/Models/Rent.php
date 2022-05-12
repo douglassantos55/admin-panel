@@ -15,7 +15,13 @@ class Rent extends Model
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
 
+    protected $casts = [
+        'start_date' => 'datetime:Y-m-d',
+        'end_date' => 'datetime:Y-m-d',
+    ];
+
     protected $appends = [
+        'number',
         'total',
         'change',
         'remaining',
@@ -44,7 +50,7 @@ class Rent extends Model
         'usage_address',
     ];
 
-    public function id(): Attribute
+    public function number(): Attribute
     {
         return Attribute::get(function () {
             return str_pad($this->attributes['id'], 6, '0', STR_PAD_LEFT);
