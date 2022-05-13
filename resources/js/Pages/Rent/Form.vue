@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, watch, computed } from 'vue'
-import { format } from '../../utils'
+import { format, addDays } from '../../utils'
 import useForm from '../../Composables/useForm'
 import useMap from '../../Composables/useMap'
 import { Link } from '@inertiajs/inertia-vue3'
@@ -215,16 +215,7 @@ watch(() => [form.start_date, form.period_id], ([ dateString, periodId ]) => {
         form.qty_days = period.qty_days
 
         if (dateString && periodId) {
-            const dateObj = new Date(dateString)
-            const period = props.periods.find(period => period.id == periodId)
-
-            dateObj.setDate(dateObj.getDate() + period.qty_days)
-
-            form.end_date = [
-                dateObj.getUTCFullYear(),
-                (dateObj.getUTCMonth()+1).toString().padStart(2, '0'),
-                dateObj.getUTCDate().toString().padStart(2, '0')
-            ].join('-')
+            form.end_date = addDays(dateString, period.qty_days)
         }
     }
 })

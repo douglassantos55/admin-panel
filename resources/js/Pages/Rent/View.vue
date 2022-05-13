@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3'
-import { format, formatDate, formatCurrency } from '../../utils'
+import { format, addDays, formatDate, formatCurrency } from '../../utils'
 
 defineProps({
     rent: {
@@ -176,5 +176,37 @@ defineProps({
         </div>
     </div>
 
-    <Link :href="route('rents.index')" class="btn btn-secondary">Voltar</Link>
+    <div class="card mb-4" v-if="rent.payment_condition.installments.length > 0">
+        <div class="card-body">
+            <h4 class="card-title mb-4">Parcelamento</h4>
+
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Parcela</th>
+                        <th>Vencimento</th>
+                        <th class="text-end">Valor</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr v-for="(installment, idx) in rent.payment_condition.installments" :key="idx">
+                        <td>{{ idx + 1 }}</td>
+                        <td>
+                            {{ formatDate(addDays(rent.start_date, installment)) }}
+                        </td>
+                        <td class="text-end">
+                            {{ formatCurrency(rent.remaining / rent.payment_condition.installments.length) }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <Link :href="route('rents.index')" class="btn btn-secondary">
+            Voltar
+        </Link>
+    </div>
 </template>

@@ -28,3 +28,14 @@ export function formatCurrency(num) {
 export function formatDate(date) {
     return new Intl.DateTimeFormat('pt-BR').format(new Date(date))
 }
+
+export function addDays(date, days) {
+    const dateObj = new Date(date)
+    dateObj.setDate(dateObj.getDate() + parseInt(days))
+
+    return [
+        dateObj.getUTCFullYear(),
+        (dateObj.getUTCMonth()+1).toString().padStart(2, '0'),
+        dateObj.getUTCDate().toString().padStart(2, '0')
+    ].join('-')
+}
