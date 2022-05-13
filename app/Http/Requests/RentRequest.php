@@ -34,7 +34,7 @@ class RentRequest extends FormRequest
         return [
             'customer_id' => ['required', 'exists:App\Models\Customer,id'],
             'period_id' => ['required', 'exists:App\Models\Period,id'],
-            'start_date' => ['required', 'date', 'after_or_equal:today'],
+            'start_date' => ['required', 'date'],
             'start_hour' => ['required', 'date_format:H:i'],
             'end_date' => ['required', 'date', 'after_or_equal:start_date'],
             'end_hour' => ['required', 'date_format:H:i'],

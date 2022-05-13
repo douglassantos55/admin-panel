@@ -75,7 +75,6 @@ class CreateRentTest extends TestCase
         $response->assertInvalid([
             'customer_id' => 'O campo Cliente não é válido.',
             'period_id' => 'O campo Período não é válido.',
-            'start_date' => 'O campo Data de início deve ser uma data maior ou igual a hoje.',
             'start_hour' => 'O campo Hora início não possui o formato H:i.',
             'end_date' => 'O campo Data de término deve ser uma data maior ou igual a Data de início.',
             'end_hour' => 'O campo Hora término não possui o formato H:i.',
