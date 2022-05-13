@@ -73,8 +73,8 @@ defineProps({
                         <td class="text-end">{{ formatCurrency(rent.total) }}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-end">
-                                <Link class="btn btn-sm btn-secondary" :href="route('rents.edit', rent.id)">
-                                    Editar
+                                <Link class="btn btn-sm btn-primary" :href="route('rents.view', rent.id)">
+                                    Visualizar
                                 </Link>
 
                                 <Link as="button" class="btn btn-sm btn-danger" href="" method="delete">

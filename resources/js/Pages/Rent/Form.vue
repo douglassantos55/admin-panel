@@ -596,7 +596,12 @@ watch(() => [form.start_date, form.period_id], ([ dateString, periodId ]) => {
                 {{ rent ? 'Editar' : 'Cadastrar' }}
             </button>
 
-            <Link :href="route('rents.index')" class="btn btn-secondary">Voltar</Link>
+            <Link
+                class="btn btn-secondary"
+                :href="rent ? route('rents.view', rent.id) : route('rents.index')"
+            >
+                Voltar
+            </Link>
         </div>
     </form>
 </template>

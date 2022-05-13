@@ -135,7 +135,7 @@ class UpdateRentTest extends TestCase
             ],
         ]);
 
-        $response->assertRedirect(route('rents.index'));
+        $response->assertRedirect(route('rents.view', $rent->id));
         $response->assertSessionHas('flash', 'Dados atualizados');
 
         $rent->refresh();

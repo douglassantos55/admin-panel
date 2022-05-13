@@ -33,6 +33,22 @@ class RentController extends Controller
         ]);
     }
 
+    public function view(Rent $rent)
+    {
+        Gate::authorize('view-rent');
+
+        return inertia('Rent/View')->with(
+            'rent',
+            $rent->loadMissing([
+                'period',
+                'customer',
+                'transporter',
+                'paymentMethod',
+                'paymentCondition',
+            ])
+        );
+    }
+
     public function create()
     {
         Gate::authorize('create-rent');
@@ -82,7 +98,7 @@ class RentController extends Controller
         $rent->items()->createMany($request->input('items'));
 
         return redirect()
-            ->route('rents.index')
+            ->route('rents.view', $rent->id)
             ->with('flash', 'Dados atualizados');
     }
 }

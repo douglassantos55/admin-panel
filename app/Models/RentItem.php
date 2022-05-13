@@ -16,6 +16,12 @@ class RentItem extends Model
         'equipment_id',
     ];
 
+    protected $appends = [
+        'subtotal_weight',
+        'subtotal_rent_value',
+        'subtotal_unit_value',
+    ];
+
     public static function booted()
     {
         static::saving(function ($item) {

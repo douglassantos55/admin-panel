@@ -48,6 +48,7 @@ class Rent extends Model
         'discount',
         'paid_value',
         'bill',
+        'observations',
         'check_info',
         'delivery_value',
         'delivery_address',

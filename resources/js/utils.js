@@ -14,7 +14,7 @@ function asOptions(object) {
 
 export function format(num) {
     return new Intl.NumberFormat('pt-BR', {
-        minimumFractionDigits: 2
+        minimumFractionDigits: 2,
     }).format(num)
 }
 
