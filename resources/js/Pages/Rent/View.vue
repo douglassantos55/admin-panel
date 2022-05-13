@@ -39,40 +39,42 @@ defineProps({
                         <td><b>Cliente</b>: {{ rent.customer.name }}</td>
                         <td><b>Período</b>: {{ rent.period.name }}</td>
                         <td><b>Início locação</b>: {{ formatDate(rent.start_date) }}</td>
-                        <td><b>Término locação</b>: {{ formatDate(rent.end_date) }}</td>
+                        <td><b>Hora início</b>: {{ rent.start_hour }}</td>
                     </tr>
 
                     <tr>
+                        <td><b>Término locação</b>: {{ formatDate(rent.end_date) }}</td>
+                        <td><b>Hora término</b>: {{ rent.end_hour }}</td>
                         <td><b>Qtd dias locados</b>: {{ rent.qty_days }}</td>
                         <td><b>Valor total dos bens</b>: {{ formatCurrency(rent.total_unit_value) }}</td>
+                    </tr>
+
+                    <tr>
                         <td><b>Valor locação/Dia</b>: {{ formatCurrency(rent.total_rent_value / rent.qty_days) }}</td>
                         <td><b>Valor total locação</b>: {{ formatCurrency(rent.total_rent_value) }}</td>
-                    </tr>
-
-                    <tr>
                         <td><b>Valor transporte</b>: {{ formatCurrency(rent.delivery_value) }}</td>
                         <td><b>Desconto</b>: {{ formatCurrency(rent.discount) }}</td>
+                    </tr>
+
+                    <tr>
                         <td><b>Razão do desconto</b>: {{ rent.discount_reason }}</td>
                         <td><b>Valor contrato</b>: {{ formatCurrency(rent.total) }}</td>
-                    </tr>
-
-                    <tr>
                         <td><b>Condição Pagam/o</b>: {{ rent.payment_condition.title }}</td>
                         <td><b>Forma Pagam/o</b>: {{ rent.payment_method.name }}</td>
+                    </tr>
+
+                    <tr>
                         <td><b>Valor pago</b>: {{ formatCurrency(rent.paid_value) }}</td>
                         <td><b>Cédula</b>: {{ formatCurrency(rent.bill) }}</td>
-                    </tr>
-
-                    <tr>
                         <td><b>Troco</b>: {{ formatCurrency(rent.change) }}</td>
                         <td><b>À receber</b>: {{ formatCurrency(rent.remaining) }}</td>
-                        <td><b>Qtd itens</b>: {{ rent.items.length }}</td>
-                        <td><b>Total peças</b>: {{ rent.total_pieces }}</td>
                     </tr>
 
                     <tr>
+                        <td><b>Qtd itens</b>: {{ rent.items.length }}</td>
+                        <td><b>Total peças</b>: {{ rent.total_pieces }}</td>
                         <td><b>Peso total</b>: {{ format(rent.total_weight) }}</td>
-                        <td colspan="3"><b>Transportador(a)</b>: {{ rent.transporter.name }}</td>
+                        <td><b>Transportador(a)</b>: {{ rent.transporter.name }}</td>
                     </tr>
 
                     <tr v-if="rent.check_info">

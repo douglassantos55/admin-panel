@@ -47,9 +47,9 @@ defineProps({
                     <th>Cliente</th>
                     <th>Data</th>
                     <th>Período</th>
-                    <th class="text-end">Valor total bens</th>
                     <th class="text-end">Valor locação</th>
                     <th class="text-end">Valor contrato</th>
+                    <th class="text-end">À receber</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -64,13 +64,15 @@ defineProps({
                         <td>{{ rent.number }}</td>
                         <td>{{ rent.customer.name }}</td>
                         <td>
-                            Início: {{ formatDate(rent.start_date) }}<br />
-                            Término: {{ formatDate(rent.end_date) }}
+                            <small>
+                                Início: {{ formatDate(rent.start_date) }} {{ rent.start_hour }}<br />
+                                Término: {{ formatDate(rent.end_date) }} {{ rent.end_hour }}
+                            </small>
                         </td>
                         <td>{{ rent.period.name }}</td>
-                        <td class="text-end">{{ formatCurrency(rent.total_unit_value) }}</td>
                         <td class="text-end">{{ formatCurrency(rent.total_rent_value) }}</td>
                         <td class="text-end">{{ formatCurrency(rent.total) }}</td>
+                        <td class="text-end">{{ formatCurrency(rent.remaining) }}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-end">
                                 <Link class="btn btn-sm btn-primary" :href="route('rents.view', rent.id)">
