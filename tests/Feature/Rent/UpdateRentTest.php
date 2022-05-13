@@ -67,8 +67,10 @@ class UpdateRentTest extends TestCase
         $response = $this->put(route('rents.update', $rent->id), [
             'customer_id' => '1',
             'period_id' => '1',
-            'start_date' => '2021-12-20 23:30',
-            'end_date' => '2021-12-10 23:10',
+            'start_date' => '2021-12-20',
+            'start_hour' => '23:30',
+            'end_date' => '2021-12-10',
+            'end_hour' => '23:10',
             'payment_type_id' => '1',
             'payment_condition_id' => '1',
             'qty_days' => 'ten',
@@ -118,8 +120,10 @@ class UpdateRentTest extends TestCase
         $response = $this->put(route('rents.update', $rent->id), [
             'customer_id' => '1',
             'period_id' => '1',
-            'start_date' => '2025-12-20 23:30',
-            'end_date' => '2026-02-10 23:30',
+            'start_date' => '2025-12-20',
+            'start_hour' =>  '23:30',
+            'end_date' => '2026-02-10',
+            'end_hour' => '23:30',
             'payment_type_id' => '1',
             'payment_condition_id' => '1',
             'qty_days' => '10',
@@ -145,5 +149,60 @@ class UpdateRentTest extends TestCase
         $this->assertEquals(19, $rent->total_rent_value);
         $this->assertEquals(10000, $rent->total_unit_value);
         $this->assertEquals(14, $rent->total);
+    }
+
+    public function test_saves_hours()
+    {
+        Auth::login(User::factory()->create());
+        $rent = Rent::factory()->create([
+            'period_id' => 1,
+            'start_date' => '2025-10-10 08:00',
+            'end_date' => '2025-10-17 08:00',
+        ]);
+
+        Customer::factory()->create();
+        Period::factory()->create();
+        $type = PaymentType::factory()->create();
+        PaymentCondition::factory()->for($type)->create(['increment' => 0]);
+        PaymentMethod::factory()->create();
+        Transporter::factory()->create();
+
+        $equipments = Equipment::factory()->count(3)->create(['unit_value' => 1000]);
+        foreach ($equipments as $key => $equipment) {
+            $equipment->values()->create([
+                'period_id' => '1',
+                'value' => $key + 0.6,
+            ]);
+        }
+
+        $rent->items()->create(['equipment_id' => 1, 'qty' => 1]);
+
+        $this->put(route('rents.update', $rent->id), [
+            'customer_id' => '1',
+            'period_id' => '1',
+            'start_date' => '2025-12-20',
+            'start_hour' =>  '23:30',
+            'end_date' => '2026-02-10',
+            'end_hour' => '23:30',
+            'payment_type_id' => '1',
+            'payment_condition_id' => '1',
+            'qty_days' => '10',
+            'transporter_id' => '1',
+            'discount' => '5',
+            'paid_value' => '2',
+            'bill' => '3',
+            'payment_method_id' => '1',
+            'items' => [
+                ['equipment_id' => '1', 'qty' => '2'],
+                ['equipment_id' => 2, 'qty' => '3'],
+                ['equipment_id' => '3', 'qty' => '5'],
+            ],
+        ]);
+
+        $rent->refresh();
+        $this->assertEquals('2025-12-20', $rent->start_date->format('Y-m-d'));
+        $this->assertEquals('2026-02-10', $rent->end_date->format('Y-m-d'));
+        $this->assertEquals('23:30', $rent->start_hour);
+        $this->assertEquals('23:30', $rent->end_hour);
     }
 }

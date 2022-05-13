@@ -4,8 +4,10 @@ namespace App\Http\Requests;
 
 use App\Models\PaymentMethod;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class RentRequest extends FormRequest
 {
@@ -60,5 +62,21 @@ class RentRequest extends FormRequest
             'items.*.equipment_id' => ['required', 'exists:App\Models\Equipment,id'],
             'items.*.qty' => ['required', 'integer', 'numeric', 'gte:1'],
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function () {
+            $startDate = $this->input('start_date');
+            $startHour = $this->input('start_hour');
+
+            $endDate = $this->input('end_date');
+            $endHour = $this->input('end_hour');
+
+            $this->merge([
+                'start_date' => Carbon::createFromFormat('Y-m-d H:i', "{$startDate} {$startHour}"),
+                'end_date' => Carbon::createFromFormat('Y-m-d H:i', "{$endDate} {$endHour}"),
+            ]);
+        });
     }
 }

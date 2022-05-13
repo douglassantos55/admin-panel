@@ -59,8 +59,10 @@ class CreateRentTest extends TestCase
         $response = $this->post(route('rents.store'), [
             'customer_id' => '1',
             'period_id' => '1',
-            'start_date' => '2021-12-20 23:30',
-            'end_date' => '2021-12-10 23:10',
+            'start_date' => '2021-12-20',
+            'start_hour' => '23:30',
+            'end_date' => '2021-12-10',
+            'end_hour' => '23:10',
             'payment_type_id' => '1',
             'payment_condition_id' => '1',
             'qty_days' => 'ten',
@@ -90,6 +92,10 @@ class CreateRentTest extends TestCase
         Auth::login(User::factory()->create());
 
         $response = $this->post(route('rents.store'), [
+            'start_date' => '2025-12-31',
+            'start_hour' => '20:00',
+            'end_date' => '2026-01-10',
+            'end_hour' => '20:00',
             'bill' => '',
             'paid_value' => '100,00',
         ]);
@@ -100,6 +106,10 @@ class CreateRentTest extends TestCase
         ]);
 
         $response = $this->post(route('rents.store'), [
+            'start_date' => '2025-12-31',
+            'start_hour' => '20:00',
+            'end_date' => '2026-01-10',
+            'end_hour' => '20:00',
             'bill' => '',
             'paid_value' => '0.00'
         ]);
@@ -113,6 +123,10 @@ class CreateRentTest extends TestCase
         PaymentMethod::factory()->create(['name' => 'Cheque']);
 
         $response = $this->post(route('rents.store'), [
+            'start_date' => '2025-12-31',
+            'start_hour' => '20:00',
+            'end_date' => '2026-01-10',
+            'end_hour' => '20:00',
             'check_info' => '',
             'payment_method_id' => '1',
         ]);
@@ -136,6 +150,10 @@ class CreateRentTest extends TestCase
         Auth::login(User::factory()->create());
 
         $response = $this->post(route('rents.store'), [
+            'start_date' => '2025-12-31',
+            'start_hour' => '20:00',
+            'end_date' => '2026-01-10',
+            'end_hour' => '20:00',
             'items' => [
                 ['equipment_id' => '', 'qty' => ''],
                 ['equipment_id' => null, 'qty' => 'five'],
@@ -168,8 +186,10 @@ class CreateRentTest extends TestCase
         $this->post(route('rents.store'), [
             'customer_id' => '1',
             'period_id' => '1',
-            'start_date' => '2025-12-20 23:30',
-            'end_date' => '2026-02-10 23:30',
+            'start_date' => '2025-12-20',
+            'start_hour' => '23:30',
+            'end_date' => '2026-02-10',
+            'end_hour' => '23:30',
             'payment_type_id' => '1',
             'payment_condition_id' => '1',
             'qty_days' => '10',
@@ -208,8 +228,10 @@ class CreateRentTest extends TestCase
         $this->post(route('rents.store'), [
             'customer_id' => '1',
             'period_id' => '1',
-            'start_date' => '2025-12-20 23:30',
-            'end_date' => '2026-02-10 23:30',
+            'start_date' => '2025-12-20',
+            'start_hour' => '23:30',
+            'end_date' => '2026-02-10',
+            'end_hour' => '23:30',
             'payment_type_id' => '1',
             'payment_condition_id' => '1',
             'qty_days' => '10',
@@ -262,8 +284,10 @@ class CreateRentTest extends TestCase
         $response = $this->post(route('rents.store'), [
             'customer_id' => '1',
             'period_id' => '1',
-            'start_date' => '2025-12-20 23:30',
-            'end_date' => '2026-02-10 23:30',
+            'start_date' => '2025-12-20',
+            'start_hour' => '23:30',
+            'end_date' => '2026-02-10',
+            'end_hour' => '23:30',
             'payment_type_id' => '1',
             'payment_condition_id' => '1',
             'qty_days' => '10',
@@ -279,5 +303,51 @@ class CreateRentTest extends TestCase
 
         $response->assertRedirect(route('rents.view', 1));
         $response->assertSessionHas('flash', 'Locação cadastrada');
+    }
+
+    public function test_saves_hours()
+    {
+        Auth::login(User::factory()->create());
+
+        Customer::factory()->create();
+        Period::factory()->create();
+        $type = PaymentType::factory()->create();
+        PaymentCondition::factory()->for($type)->create();
+        PaymentMethod::factory()->create();
+        Transporter::factory()->create();
+
+        $equipments = Equipment::factory()->count(3)->create();
+        foreach ($equipments as $key => $equipment) {
+            $equipment->values()->create([
+                'period_id' => '1',
+                'value' => $key + 0.6,
+            ]);
+        }
+
+        $this->post(route('rents.store'), [
+            'customer_id' => '1',
+            'period_id' => '1',
+            'start_date' => '2025-12-20',
+            'start_hour' => '23:30',
+            'end_date' => '2026-02-10',
+            'end_hour' => '23:30',
+            'payment_type_id' => '1',
+            'payment_condition_id' => '1',
+            'qty_days' => '10',
+            'transporter_id' => '1',
+            'discount' => '5',
+            'payment_method_id' => '1',
+            'items' => [
+                ['equipment_id' => '1', 'qty' => '2'],
+                ['equipment_id' => 2, 'qty' => '3'],
+                ['equipment_id' => '3', 'qty' => '5'],
+            ],
+        ]);
+
+        $rent = Rent::find(1);
+        $this->assertEquals('2025-12-20', $rent->start_date->format('Y-m-d'));
+        $this->assertEquals('2026-02-10', $rent->end_date->format('Y-m-d'));
+        $this->assertEquals('23:30', $rent->start_hour);
+        $this->assertEquals('23:30', $rent->end_hour);
     }
 }

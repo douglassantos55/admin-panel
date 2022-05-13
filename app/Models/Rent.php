@@ -28,6 +28,8 @@ class Rent extends Model
         'number',
         'total',
         'change',
+        'start_hour',
+        'end_hour',
         'remaining',
         'total_pieces',
         'total_weight',
@@ -59,6 +61,20 @@ class Rent extends Model
     {
         return Attribute::get(function () {
             return str_pad($this->attributes['id'], 6, '0', STR_PAD_LEFT);
+        });
+    }
+
+    public function startHour(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->start_date->format('H:i');
+        });
+    }
+
+    public function endHour(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->end_date->format('H:i');
         });
     }
 
