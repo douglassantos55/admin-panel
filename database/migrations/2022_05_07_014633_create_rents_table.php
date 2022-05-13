@@ -29,6 +29,8 @@ return new class extends Migration
             $table->decimal('bill', 10)->nullable();
             $table->string('check_info')->nullable();
             $table->string('delivery_address')->nullable();
+            $table->string('discount_reason')->nullable();
+            $table->decimal('delivery_value', 10)->nullable();
             $table->string('usage_address')->nullable();
             $table->foreignIdFor(Customer::class);
             $table->foreignIdFor(Period::class);

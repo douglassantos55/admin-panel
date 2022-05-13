@@ -16,6 +16,10 @@ class Rent extends Model
     const UPDATED_AT = 'updatedAt';
 
     protected $casts = [
+        'discount' => 'float',
+        'paid_value' => 'float',
+        'delivery_value' => 'float',
+        'bill' => 'float',
         'start_date' => 'datetime:Y-m-d',
         'end_date' => 'datetime:Y-m-d',
     ];

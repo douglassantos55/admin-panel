@@ -53,7 +53,10 @@ class RentItem extends Model
         return Attribute::get(function ($value) {
             if (!$value) {
                 $periodId = $this->rent?->period_id;
-                return $this->equipment?->getRentingValue($periodId);
+                $condition = $this->rent?->paymentCondition;
+
+                $value = $this->equipment?->getRentingValue($periodId);
+                return $value * (1 + $condition?->increment / 100);
             }
             return $value;
         });

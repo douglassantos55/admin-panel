@@ -50,38 +50,34 @@ function createItem(data = { qty: '', equipment_id: '' }) {
     const item = reactive(data)
 
     watch(() => [
+        item.qty,
         item.equipment_id,
         form.period_id,
         form.payment_condition_id
-    ], function ([equipment_id, period_id, condition_id]) {
+    ], function ([qty, equipment_id, period_id, condition_id]) {
         const equipment = search(equipment_id)
 
-        item.weight = equipment && equipment.weight
-        item.unit_value = equipment && equipment.unit_value
+        if (equipment) {
+            item.weight = equipment.weight
+            item.unit_value = equipment.unit_value
 
-        const rent_value = equipment && equipment.values.find(function (v) {
-            return v.period_id == period_id
-        })
+            item.subtotal_weight = equipment.weight * qty
+            item.subtotal_unit_value = equipment.unit_value * qty
 
-        const condition = props.payment_conditions.find(function (condition) {
-            return condition.id == condition_id
-        })
+            const rent_value = equipment.values.find(function (v) {
+                return v.period_id == period_id
+            })
 
-        const multiplier = 1 + (condition && condition.increment / 100 || 0)
-        item.rent_value = rent_value && rent_value.value * multiplier
-    })
+            const condition = props.payment_conditions.find(function (condition) {
+                return condition.id == condition_id
+            })
 
-    item.subtotal_weight = computed(() => {
-        return item.weight * item.qty
-    })
+            const multiplier = 1 + (condition && condition.increment / 100 || 0)
+            item.rent_value = rent_value && rent_value.value * multiplier
 
-    item.subtotal_unit_value = computed(() => {
-        return item.unit_value * item.qty
-    })
-
-    item.subtotal_rent_value = computed(() => {
-        return item.rent_value * item.qty
-    })
+            item.subtotal_rent_value = item.rent_value * qty
+        }
+    }, { immediate: true })
 
     return item
 }

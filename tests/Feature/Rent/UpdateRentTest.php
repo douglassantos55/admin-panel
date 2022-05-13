@@ -101,7 +101,7 @@ class UpdateRentTest extends TestCase
         Customer::factory()->create();
         Period::factory()->create();
         $type = PaymentType::factory()->create();
-        PaymentCondition::factory()->for($type)->create();
+        PaymentCondition::factory()->for($type)->create(['increment' => 0]);
         PaymentMethod::factory()->create();
         Transporter::factory()->create();
 
